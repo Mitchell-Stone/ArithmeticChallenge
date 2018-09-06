@@ -24,6 +24,7 @@ namespace ArithmeticChallenge
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
 
+        private Socket serverSocket;
         private Socket clientSocket;
         private byte[] buffer;
 
@@ -33,6 +34,28 @@ namespace ArithmeticChallenge
             dd_operator.DataSource = operators;
 
             LoadQuestionsDataGridView();
+
+            StartServer();
+        }
+
+        private void StartServer()
+        {
+            try
+            {
+                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serverSocket.Bind(new IPEndPoint(IPAddress.Any, 3333)); // bind on port  3333
+                serverSocket.Listen(10); // listening on a backlog of ten pending connections
+                serverSocket.BeginAccept(AcceptCallback, null); // start accepting incoming 
+                Console.WriteLine("Server Started");
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
         }
 
         private void btn_send_Click(object sender, EventArgs e)
@@ -48,29 +71,8 @@ namespace ArithmeticChallenge
             EquationNode node = new EquationNode(equation);
             equationNodeList.AddEquationNode(node);
 
-            try
-            {
-                byte[] buffer = equation.ToByteArray();
-                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                //my home computer
-                string ipAddress = "192.168.1.4";
 
-                var endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), 3333);
-                clientSocket.BeginConnect(endPoint, ConnectCallback, null);
-
-                clientSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, SendCallback, null);
-            }
-            catch (SocketException ex)
-            {
-                ShowErrorDialog(ex.Message);
-                UpdateControlStates(false);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                ShowErrorDialog(ex.Message);
-                UpdateControlStates(false);
-            }
 
             StringBuilder sb = new StringBuilder();
             if (rtb_linkList.Text == "")
@@ -94,26 +96,7 @@ namespace ArithmeticChallenge
         {
             try
             {
-                clientSocket.EndSend(AR);
-            }
-            catch (SocketException ex)
-            {
-                ShowErrorDialog(ex.Message);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                ShowErrorDialog(ex.Message);
-            }
-        }
-
-        private void ConnectCallback(IAsyncResult AR)
-        {
-            try
-            {
-                clientSocket.EndConnect(AR);
-                UpdateControlStates(true);
-                buffer = new byte[clientSocket.ReceiveBufferSize];
-                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+                serverSocket.EndSend(AR);
             }
             catch (SocketException ex)
             {
@@ -129,7 +112,7 @@ namespace ArithmeticChallenge
         {
             try
             {
-                int received = clientSocket.EndReceive(AR);
+                int received = serverSocket.EndReceive(AR);
 
                 if (received == 0)
                 {
@@ -144,9 +127,34 @@ namespace ArithmeticChallenge
                 });
 
                 // Start receiving data again.
-                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+                serverSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
             }
             // Avoid catching all exceptions handling in cases like these.
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void AcceptCallback(IAsyncResult AR)
+        {
+            try
+            {
+                clientSocket = serverSocket.EndAccept(AR); // set up the clientsocket
+                buffer = new byte[clientSocket.ReceiveBufferSize]; // intialise the buffer to proper buffer size
+
+                // Send a message to the newly connected client.
+                var sendData = Encoding.ASCII.GetBytes("Hello");
+                clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
+                // Listen for client data.
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+                // Continue listening for clients.
+                serverSocket.BeginAccept(AcceptCallback, null);
+            }
             catch (SocketException ex)
             {
                 ShowErrorDialog(ex.Message);
