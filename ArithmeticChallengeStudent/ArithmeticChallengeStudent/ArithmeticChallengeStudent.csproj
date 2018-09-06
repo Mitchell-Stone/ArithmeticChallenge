@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1D41731-B647-4005-B69C-E7E41EA2DEA9}</ProjectGuid>
+    <ProjectGuid>{5904C1E6-B7BC-48EC-89BC-54F7150526FB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ArithmeticChallenge</RootNamespace>
-    <AssemblyName>ArithmeticChallenge</AssemblyName>
+    <RootNamespace>ArithmeticChallengeStudent</RootNamespace>
+    <AssemblyName>ArithmeticChallengeStudent</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,20 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\InstructorController.cs" />
-    <Compile Include="Instructor.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Instructor.Designer.cs">
-      <DependentUpon>Instructor.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="EquationFunction\EquationProperties.cs" />
-    <Compile Include="NodeFunctions\EquationNode.cs" />
-    <Compile Include="NodeFunctions\EquationNodeList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Instructor.resx">
-      <DependentUpon>Instructor.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -82,6 +78,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

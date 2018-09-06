@@ -18,16 +18,16 @@ namespace ArithmeticChallenge.NodeFunctions
             this.equation = equation;
         }
 
-        public EquationProperties getMyValue()
+        public EquationProperties GetMyValue()
         {
             return this.equation;
         }
-        public void setMyValue(EquationProperties equation)
+        public void SetMyValue(EquationProperties equation)
         {
             this.equation = equation;
         }
 
-        public void setNext(EquationNode aNode)
+        public void SetNext(EquationNode aNode)
         {
             this.next = aNode;
         }
@@ -37,12 +37,12 @@ namespace ArithmeticChallenge.NodeFunctions
             return this.next;
         }
 
-        public void setPrevious(EquationNode aNode)
+        public void SetPrevious(EquationNode aNode)
         {
             this.previous = aNode;
         }
 
-        public EquationNode getPrevious()
+        public EquationNode GetPrevious()
         {
             return this.previous;
         }

@@ -27,6 +27,7 @@ namespace ArithmeticChallenge.NodeFunctions
         public EquationNode getCurrentNode() { return CurrentNode; }
         public EquationNode getHeadNode() { return HeadNode; }
         public EquationNode getTailNode() { return TailNode; }
+
         public void setCurrentNode(EquationNode node) { CurrentNode = node; }
         public void setHeadNode(EquationNode node) { HeadNode = node; }
         public void setTailNode(EquationNode node) { TailNode = node; }
@@ -44,8 +45,8 @@ namespace ArithmeticChallenge.NodeFunctions
             else
             {
                 CurrentNode = node;
-                HeadNode.setPrevious(node);
-                CurrentNode.setNext(HeadNode);
+                HeadNode.SetPrevious(node);
+                CurrentNode.SetNext(HeadNode);
                 setHeadNode(CurrentNode);
                 count++;
             }

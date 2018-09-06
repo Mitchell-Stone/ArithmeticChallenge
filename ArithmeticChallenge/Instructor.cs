@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,7 +24,8 @@ namespace ArithmeticChallenge
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
 
-        
+        private Socket clientSocket;
+        private byte[] buffer;
 
         public Instructor()
         {
@@ -34,19 +37,42 @@ namespace ArithmeticChallenge
 
         private void btn_send_Click(object sender, EventArgs e)
         {
-            EquationProperties equation = new EquationProperties()
-            {
-                FirstNumber = Convert.ToInt32(tb_firstNumber.Text),
-                SecondNumber = Convert.ToInt32(tb_secondNumber.Text),
-                Symbol = dd_operator.Text,
-                Result = Convert.ToInt32(tb_answer.Text)
-            };
+            btn_send.Enabled = false;
+            EquationProperties equation = new EquationProperties(Convert.ToUInt16(tb_firstNumber.Text),
+                Convert.ToUInt16(tb_secondNumber.Text), dd_operator.Text, Convert.ToUInt16(tb_answer.Text), false);
+
+            //add to list to be displayed
             equations.Add(equation);
 
-            equationNodeList.AddEquationNode(new EquationNode(equation));
+            //create new node and add to nodelist
+            EquationNode node = new EquationNode(equation);
+            equationNodeList.AddEquationNode(node);
+
+            try
+            {
+                byte[] buffer = equation.ToByteArray();
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                //my home computer
+                string ipAddress = "192.168.1.4";
+
+                var endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), 3333);
+                clientSocket.BeginConnect(endPoint, ConnectCallback, null);
+
+                clientSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, SendCallback, null);
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+                UpdateControlStates(false);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+                UpdateControlStates(false);
+            }
 
             StringBuilder sb = new StringBuilder();
-
             if (rtb_linkList.Text == "")
             {
                 sb.Append("Head <-> ");
@@ -62,7 +88,73 @@ namespace ArithmeticChallenge
             rtb_linkList.Text = sb.ToString();
 
             RefreshResultDatagrid();
+        }
 
+        private void SendCallback(IAsyncResult AR)
+        {
+            try
+            {
+                clientSocket.EndSend(AR);
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void ConnectCallback(IAsyncResult AR)
+        {
+            try
+            {
+                clientSocket.EndConnect(AR);
+                UpdateControlStates(true);
+                buffer = new byte[clientSocket.ReceiveBufferSize];
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult AR)
+        {
+            try
+            {
+                int received = clientSocket.EndReceive(AR);
+
+                if (received == 0)
+                {
+                    return;
+                }
+
+                string message = Encoding.ASCII.GetString(buffer);
+
+                Invoke((Action)delegate
+                {
+                    Text = "Server says: " + message;
+                });
+
+                // Start receiving data again.
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            }
+            // Avoid catching all exceptions handling in cases like these.
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
         }
 
         //loads the data grid view and allocates the data source values to the correct columns
@@ -125,5 +217,18 @@ namespace ArithmeticChallenge
                 dd_operator.Text).ToString();
         }
         #endregion
+
+        private static void ShowErrorDialog(string message)
+        {
+            MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void UpdateControlStates(bool toggle)
+        {
+            Invoke((Action)delegate
+            {
+                btn_send.Enabled = toggle;
+            });
+        }
     }
 }
