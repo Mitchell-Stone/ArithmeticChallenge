@@ -1,0 +1,10 @@
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\bin\Debug\ArithmeticChallenge.exe.config
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\bin\Debug\ArithmeticChallenge.exe
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\bin\Debug\ArithmeticChallenge.pdb
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.csprojResolveAssemblyReference.cache
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.Instructor.resources
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.Properties.Resources.resources
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.csproj.GenerateResource.Cache
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.csproj.CoreCompileInputs.cache
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.exe
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.pdb
