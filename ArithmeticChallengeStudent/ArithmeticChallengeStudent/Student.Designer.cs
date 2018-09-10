@@ -31,7 +31,7 @@
             this.btn_exit = new System.Windows.Forms.Button();
             this.btn_submit = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_answer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,12 +65,12 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
             // 
-            // textBox2
+            // tb_answer
             // 
-            this.textBox2.Location = new System.Drawing.Point(137, 111);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.tb_answer.Location = new System.Drawing.Point(137, 111);
+            this.tb_answer.Name = "tb_answer";
+            this.tb_answer.Size = new System.Drawing.Size(100, 20);
+            this.tb_answer.TabIndex = 3;
             // 
             // label1
             // 
@@ -117,12 +117,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tb_answer);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.btn_exit);
             this.Name = "Student";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Student_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,7 +134,7 @@
         private System.Windows.Forms.Button btn_exit;
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tb_answer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

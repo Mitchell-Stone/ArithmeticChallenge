@@ -7,3 +7,13 @@ D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallen
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csproj.CoreCompileInputs.cache
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.exe
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.pdb
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\bin\Debug\ArithmeticChallengeStudent.exe.config
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\bin\Debug\ArithmeticChallengeStudent.exe
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\bin\Debug\ArithmeticChallengeStudent.pdb
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.Student.resources
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.Properties.Resources.resources
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csproj.GenerateResource.Cache
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csproj.CoreCompileInputs.cache
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.exe
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.pdb
+C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csprojResolveAssemblyReference.cache
