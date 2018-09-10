@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -8,16 +9,18 @@ namespace ArithmeticChallengeStudent
 {
     public partial class Student : Form
     {
-        private static readonly Socket ClientSocket = new Socket
-            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         private const int PORT = 333;
+
+        static EquationProperties equation;
+
+        static string question = null;
 
         public Student()
         {
             InitializeComponent();
-            ConnectToServer();
-            ReceiveResponse();
+            ConnectToServer();            
         }
 
         private static void ConnectToServer()
@@ -30,7 +33,6 @@ namespace ArithmeticChallengeStudent
                 {
                     attempts++;
                     Console.WriteLine("Connection attempt " + attempts);
-                    // Change IPAddress.Loopback to a remote IP to connect to a remote host.
                     ClientSocket.Connect(IPAddress.Loopback, PORT);
                 }
                 catch (SocketException ex)
@@ -38,45 +40,47 @@ namespace ArithmeticChallengeStudent
                     Console.WriteLine(ex);
                 }
             }
-
             Console.WriteLine("Connected");
         }
-
+        
         private static void ReceiveResponse()
         {
             try
             {
-                var buffer = new byte[11];
+                var buffer = new byte[150];
                 int received = ClientSocket.Receive(buffer, SocketFlags.None);
-                if (received == 0) return;
-                var data = new byte[received];
-                var question = new EquationProperties(buffer);
-                Array.Copy(buffer, data, received);
-                string text = Encoding.ASCII.GetString(data);
-                Console.WriteLine(question.Result);
+                if (received != 0)
+                {
+                    string text = Encoding.ASCII.GetString(buffer);
+                    int index = text.IndexOf("\0");
+                    text = text.Remove(index, text.Length - index);
+
+                    equation = JsonConvert.DeserializeObject<EquationProperties>(text);
+
+                    question = equation.FirstNumber + equation.Symbol + equation.SecondNumber + "=";
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex);            
             }         
-        }
-
-        private static void SendRequest()
-        {
-           
-        }
-
-        private static void Exit()
-        {
-            SendString("exit"); // Tell the server we are exiting
-            ClientSocket.Shutdown(SocketShutdown.Both);
-            ClientSocket.Close();
-            Environment.Exit(0);
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            //SendString(tb_answer.Text);
+            if (tb_answer.Text == equation.Result.ToString())
+            {
+                equation.IsCorrect = true;
+                string json = JsonConvert.SerializeObject(equation);
+                SendString(json);
+            }
+            else
+            {
+                equation.IsCorrect = false;
+                string json = JsonConvert.SerializeObject(equation);
+                SendString(json);
+            }
+            
         }
 
         private static void SendString(string message)
@@ -91,9 +95,16 @@ namespace ArithmeticChallengeStudent
             this.Close();
         }
 
-        private void Student_Load(object sender, EventArgs e)
+        private static void Exit()
         {
+            ClientSocket.Shutdown(SocketShutdown.Both);
+            ClientSocket.Close();
+            Environment.Exit(0);
+        }
 
+        private void tb_connect_Click(object sender, EventArgs e)
+        {
+            ReceiveResponse();
         }
     }
 }

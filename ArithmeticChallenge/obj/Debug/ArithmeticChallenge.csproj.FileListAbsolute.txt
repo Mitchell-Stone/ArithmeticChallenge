@@ -18,3 +18,5 @@ D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChal
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.csproj.CoreCompileInputs.cache
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.exe
 D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\obj\Debug\ArithmeticChallenge.pdb
+D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\bin\Debug\Newtonsoft.Json.dll
+D:\Project Repo\ArithmeticChallenge\ArithmeticChallenge\bin\Debug\Newtonsoft.Json.xml

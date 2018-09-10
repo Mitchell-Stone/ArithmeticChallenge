@@ -1,5 +1,6 @@
 ﻿using ArithmeticChallenge.Controllers;
 using ArithmeticChallenge.NodeFunctions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,7 +65,7 @@ namespace ArithmeticChallenge
 
             clientSockets.Add(socket);
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, socket);
-            Console.WriteLine("Client connected, waiting for request...");
+            Console.WriteLine("Client connected... Waiting to send message");
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -95,7 +96,7 @@ namespace ArithmeticChallenge
 
             foreach (var socket in clientSockets)
             {
-                byte[] buffer = equation.ToByteArray();
+                byte[] buffer = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(equation));
                 socket.Send(buffer, 0 ,buffer.Length, SocketFlags.None);
             }
             

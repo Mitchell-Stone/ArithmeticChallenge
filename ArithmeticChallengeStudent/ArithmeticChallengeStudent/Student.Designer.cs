@@ -30,12 +30,13 @@
         {
             this.btn_exit = new System.Windows.Forms.Button();
             this.btn_submit = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tb_question = new System.Windows.Forms.TextBox();
             this.tb_answer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.tb_connect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_exit
@@ -58,12 +59,12 @@
             this.btn_submit.UseVisualStyleBackColor = true;
             this.btn_submit.Click += new System.EventHandler(this.btn_submit_Click);
             // 
-            // textBox1
+            // tb_question
             // 
-            this.textBox1.Location = new System.Drawing.Point(137, 74);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.tb_question.Location = new System.Drawing.Point(137, 74);
+            this.tb_question.Name = "tb_question";
+            this.tb_question.Size = new System.Drawing.Size(100, 20);
+            this.tb_question.TabIndex = 2;
             // 
             // tb_answer
             // 
@@ -108,22 +109,32 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "STUDENT";
             // 
+            // tb_connect
+            // 
+            this.tb_connect.Location = new System.Drawing.Point(12, 226);
+            this.tb_connect.Name = "tb_connect";
+            this.tb_connect.Size = new System.Drawing.Size(75, 23);
+            this.tb_connect.TabIndex = 8;
+            this.tb_connect.Text = "Connect";
+            this.tb_connect.UseVisualStyleBackColor = true;
+            this.tb_connect.Click += new System.EventHandler(this.tb_connect_Click);
+            // 
             // Student
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.tb_connect);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_answer);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tb_question);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.btn_exit);
             this.Name = "Student";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Student_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,12 +144,13 @@
 
         private System.Windows.Forms.Button btn_exit;
         private System.Windows.Forms.Button btn_submit;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_question;
         private System.Windows.Forms.TextBox tb_answer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button tb_connect;
     }
 }
 

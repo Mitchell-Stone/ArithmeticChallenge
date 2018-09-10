@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,15 @@ namespace ArithmeticChallenge
     [Serializable]
     class EquationProperties
     {
+        [JsonProperty("first_number")]
         public ushort FirstNumber { get; set; }
+        [JsonProperty("second_number")]
         public ushort SecondNumber { get; set; }
+        [JsonProperty("symbol")]
         public string Symbol { get; set; }
+        [JsonProperty("result")]
         public ushort Result { get; set; }
+        [JsonProperty("is_correct")]
         public bool IsCorrect { get; set; }
 
         public EquationProperties() { }

@@ -17,3 +17,6 @@ C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallen
 C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.exe
 C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.pdb
 C:\Users\0111005906\Desktop\C# Assessments\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csprojResolveAssemblyReference.cache
+D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\bin\Debug\Newtonsoft.Json.dll
+D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\bin\Debug\Newtonsoft.Json.xml
+D:\Project Repo\ArithmeticChallenge\ArithmeticChallengeStudent\ArithmeticChallengeStudent\obj\Debug\ArithmeticChallengeStudent.csprojResolveAssemblyReference.cache
