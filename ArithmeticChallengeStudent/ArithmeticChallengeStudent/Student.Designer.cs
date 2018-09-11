@@ -36,7 +36,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.tb_connect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_exit
@@ -109,22 +108,11 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "STUDENT";
             // 
-            // tb_connect
-            // 
-            this.tb_connect.Location = new System.Drawing.Point(12, 226);
-            this.tb_connect.Name = "tb_connect";
-            this.tb_connect.Size = new System.Drawing.Size(75, 23);
-            this.tb_connect.TabIndex = 8;
-            this.tb_connect.Text = "Connect";
-            this.tb_connect.UseVisualStyleBackColor = true;
-            this.tb_connect.Click += new System.EventHandler(this.tb_connect_Click);
-            // 
             // Student
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.tb_connect);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -150,7 +138,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button tb_connect;
     }
 }
 

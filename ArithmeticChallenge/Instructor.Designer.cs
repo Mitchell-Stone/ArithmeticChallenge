@@ -37,8 +37,6 @@
             this.tb_answer = new System.Windows.Forms.TextBox();
             this.dd_operator = new System.Windows.Forms.ComboBox();
             this.dgv_questionsAsked = new System.Windows.Forms.DataGridView();
-            this.dgv_correctAnswers = new System.Windows.Forms.DataGridView();
-            this.dgv_incorrectAnswers = new System.Windows.Forms.DataGridView();
             this.btn_send = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -59,9 +57,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.rtb_linkList = new System.Windows.Forms.RichTextBox();
+            this.rtb_incorrect = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_questionsAsked)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_correctAnswers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_incorrectAnswers)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -144,22 +141,6 @@
             this.dgv_questionsAsked.Name = "dgv_questionsAsked";
             this.dgv_questionsAsked.Size = new System.Drawing.Size(455, 150);
             this.dgv_questionsAsked.TabIndex = 10;
-            // 
-            // dgv_correctAnswers
-            // 
-            this.dgv_correctAnswers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_correctAnswers.Location = new System.Drawing.Point(385, 289);
-            this.dgv_correctAnswers.Name = "dgv_correctAnswers";
-            this.dgv_correctAnswers.Size = new System.Drawing.Size(373, 269);
-            this.dgv_correctAnswers.TabIndex = 11;
-            // 
-            // dgv_incorrectAnswers
-            // 
-            this.dgv_incorrectAnswers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_incorrectAnswers.Location = new System.Drawing.Point(394, 276);
-            this.dgv_incorrectAnswers.Name = "dgv_incorrectAnswers";
-            this.dgv_incorrectAnswers.Size = new System.Drawing.Size(364, 269);
-            this.dgv_incorrectAnswers.TabIndex = 12;
             // 
             // btn_send
             // 
@@ -316,7 +297,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(497, 255);
+            this.label10.Location = new System.Drawing.Point(12, 396);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(170, 18);
             this.label10.TabIndex = 28;
@@ -326,7 +307,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(140, 255);
+            this.label11.Location = new System.Drawing.Point(12, 255);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(83, 18);
             this.label11.TabIndex = 29;
@@ -345,15 +326,24 @@
             // 
             this.rtb_linkList.Location = new System.Drawing.Point(12, 276);
             this.rtb_linkList.Name = "rtb_linkList";
-            this.rtb_linkList.Size = new System.Drawing.Size(366, 140);
+            this.rtb_linkList.Size = new System.Drawing.Size(727, 100);
             this.rtb_linkList.TabIndex = 31;
             this.rtb_linkList.Text = "";
+            // 
+            // rtb_incorrect
+            // 
+            this.rtb_incorrect.Location = new System.Drawing.Point(12, 417);
+            this.rtb_incorrect.Name = "rtb_incorrect";
+            this.rtb_incorrect.Size = new System.Drawing.Size(727, 100);
+            this.rtb_incorrect.TabIndex = 32;
+            this.rtb_incorrect.Text = "";
             // 
             // Instructor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 637);
+            this.Controls.Add(this.rtb_incorrect);
             this.Controls.Add(this.rtb_linkList);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.label11);
@@ -373,8 +363,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_send);
-            this.Controls.Add(this.dgv_incorrectAnswers);
-            this.Controls.Add(this.dgv_correctAnswers);
             this.Controls.Add(this.dgv_questionsAsked);
             this.Controls.Add(this.dd_operator);
             this.Controls.Add(this.tb_answer);
@@ -388,8 +376,6 @@
             this.Name = "Instructor";
             this.Text = "Instructor";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_questionsAsked)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_correctAnswers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_incorrectAnswers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,8 +392,6 @@
         private System.Windows.Forms.TextBox tb_answer;
         private System.Windows.Forms.ComboBox dd_operator;
         private System.Windows.Forms.DataGridView dgv_questionsAsked;
-        private System.Windows.Forms.DataGridView dgv_correctAnswers;
-        private System.Windows.Forms.DataGridView dgv_incorrectAnswers;
         private System.Windows.Forms.Button btn_send;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -428,6 +412,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.RichTextBox rtb_linkList;
+        private System.Windows.Forms.RichTextBox rtb_incorrect;
     }
 }
 

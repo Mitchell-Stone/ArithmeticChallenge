@@ -9,61 +9,124 @@ namespace ArithmeticChallengeStudent
 {
     public partial class Student : Form
     {
-        private static readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        private const int PORT = 333;
+        private static Socket clientSocket;
+        private byte[] buffer;
+        private int PORT = 3333;
 
         static EquationProperties equation;
-
-        static string question = null;
 
         public Student()
         {
             InitializeComponent();
-            ConnectToServer();            
-        }
-
-        private static void ConnectToServer()
-        {
-            int attempts = 0;
-
-            while (!ClientSocket.Connected)
+            btn_submit.Enabled = false;
+            try
             {
-                try
-                {
-                    attempts++;
-                    Console.WriteLine("Connection attempt " + attempts);
-                    ClientSocket.Connect(IPAddress.Loopback, PORT);
-                }
-                catch (SocketException ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                //connect to the specified host.
+                var endPoint = new IPEndPoint(IPAddress.Parse("192.168.1.4"), PORT);
+                clientSocket.BeginConnect(endPoint, ConnectCallback, null);
             }
-            Console.WriteLine("Connected");
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
         }
-        
-        private static void ReceiveResponse()
+
+        private void ReceiveCallback(IAsyncResult AR)
         {
             try
             {
-                var buffer = new byte[150];
-                int received = ClientSocket.Receive(buffer, SocketFlags.None);
-                if (received != 0)
+                int received = clientSocket.EndReceive(AR);
+
+                if (received == 0)
                 {
-                    string text = Encoding.ASCII.GetString(buffer);
-                    int index = text.IndexOf("\0");
-                    text = text.Remove(index, text.Length - index);
-
-                    equation = JsonConvert.DeserializeObject<EquationProperties>(text);
-
-                    question = equation.FirstNumber + equation.Symbol + equation.SecondNumber + "=";
+                    return;
                 }
+
+                string message = Encoding.ASCII.GetString(buffer);
+                int index = message.IndexOf("\0");
+                message = message.Substring(0, index);
+                
+                if (message == "Connected to Server")
+                {
+                    Console.WriteLine(message);
+                }
+                else if (DeserializeJson(message) != null) 
+                {
+                    Console.WriteLine(message);
+                    equation = DeserializeJson(message);
+
+                    Invoke((Action)delegate
+                    {
+                        tb_question.Text = equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber.ToString() + "=";
+                        btn_submit.Enabled = true;
+                    });
+                }
+
+                // Start receiving data again.
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            }
+            // Avoid catching all exceptions handling in cases like these.
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void ConnectCallback(IAsyncResult AR)
+        {
+            try
+            {
+                clientSocket.EndConnect(AR);
+                buffer = new byte[clientSocket.ReceiveBufferSize];
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void SendCallback(IAsyncResult AR)
+        {
+            try
+            {
+                clientSocket.EndSend(AR);
+            }
+            catch (SocketException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private EquationProperties DeserializeJson(string json)
+        {
+            try
+            {
+                EquationProperties eq = JsonConvert.DeserializeObject<EquationProperties>(json);
+                return eq;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);            
-            }         
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
@@ -72,39 +135,31 @@ namespace ArithmeticChallengeStudent
             {
                 equation.IsCorrect = true;
                 string json = JsonConvert.SerializeObject(equation);
-                SendString(json);
+                SendMessage(json);
             }
             else
             {
                 equation.IsCorrect = false;
                 string json = JsonConvert.SerializeObject(equation);
-                SendString(json);
+                SendMessage(json);
             }
-            
+            btn_submit.Enabled = false;
         }
 
-        private static void SendString(string message)
+        private void SendMessage(string json)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(message);
-            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+            var sendData = Encoding.ASCII.GetBytes(json);
+            clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
         }
         
         private void btn_exit_Click(object sender, EventArgs e)
         {
-            Exit();
             this.Close();
         }
 
-        private static void Exit()
+        private static void ShowErrorDialog(string message)
         {
-            ClientSocket.Shutdown(SocketShutdown.Both);
-            ClientSocket.Close();
-            Environment.Exit(0);
-        }
-
-        private void tb_connect_Click(object sender, EventArgs e)
-        {
-            ReceiveResponse();
+            MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
