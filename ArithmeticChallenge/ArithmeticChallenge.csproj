@@ -58,8 +58,8 @@
     <Compile Include="EquationFunction\EquationProperties.cs" />
     <Compile Include="NodeFunctions\BinaryTree.cs" />
     <Compile Include="NodeFunctions\BinaryTreeNode.cs" />
-    <Compile Include="NodeFunctions\EquationNode.cs" />
-    <Compile Include="NodeFunctions\EquationNodeList.cs" />
+    <Compile Include="NodeFunctions\LinkListNode.cs" />
+    <Compile Include="NodeFunctions\LinkListNodeList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Instructor.resx">

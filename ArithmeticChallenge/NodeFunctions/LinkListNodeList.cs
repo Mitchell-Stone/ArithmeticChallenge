@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
-    class EquationNodeList
+    class LinkListNodeList
     {
-        public BinaryTreeNode HeadNode;
-        public BinaryTreeNode CurrentNode;
-        public BinaryTreeNode TailNode;
+        public LinkListNode HeadNode;
+        public LinkListNode CurrentNode;
+        public LinkListNode TailNode;
 
         public static int count = 0;
 
-        public EquationNodeList(){}
+        public LinkListNodeList(){}
 
-        public EquationNodeList(BinaryTreeNode node)
+        public LinkListNodeList(LinkListNode node)
         {
             HeadNode = node;
             CurrentNode = node;
@@ -24,15 +24,15 @@ namespace ArithmeticChallenge.NodeFunctions
             count++;
         }
 
-        public BinaryTreeNode getCurrentNode() { return CurrentNode; }
-        public BinaryTreeNode getHeadNode() { return HeadNode; }
-        public BinaryTreeNode getTailNode() { return TailNode; }
+        public LinkListNode getCurrentNode() { return CurrentNode; }
+        public LinkListNode getHeadNode() { return HeadNode; }
+        public LinkListNode getTailNode() { return TailNode; }
 
-        public void setCurrentNode(BinaryTreeNode node) { CurrentNode = node; }
-        public void setHeadNode(BinaryTreeNode node) { HeadNode = node; }
-        public void setTailNode(BinaryTreeNode node) { TailNode = node; }
+        public void setCurrentNode(LinkListNode node) { CurrentNode = node; }
+        public void setHeadNode(LinkListNode node) { HeadNode = node; }
+        public void setTailNode(LinkListNode node) { TailNode = node; }
 
-        public void AddEquationNode(BinaryTreeNode node)
+        public void AddEquationNode(LinkListNode node)
         {
             if ((HeadNode == null) && (CurrentNode == null) && (TailNode == null))
             {

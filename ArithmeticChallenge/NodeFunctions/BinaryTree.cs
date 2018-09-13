@@ -1,12 +1,14 @@
-﻿namespace ArithmeticChallenge.NodeFunctions
+﻿using System.Text;
+
+namespace ArithmeticChallenge.NodeFunctions
 {
     class BinaryTree
     {
         public BinaryTreeNode top;
 
-        public BinaryTree(EquationProperties myValue)
+        public BinaryTree()
         {
-            top = new BinaryTreeNode(myValue);
+            top = null;
         }
 
         public void Add(EquationProperties myValue)
@@ -23,7 +25,7 @@
 
             do
             {
-                if (myValue.Result < currentNode.GetMyValue().Result)
+                if (myValue.Result < currentNode.treeEquation.Result)
                 {
                     //insert to the left
                     if (currentNode.left == null)
@@ -36,70 +38,60 @@
                         //move left
                         currentNode = currentNode.left;
                     }
+                }
 
-                    if (myValue.Result >= currentNode.GetMyValue().Result)
+                if (myValue.Result >= currentNode.treeEquation.Result)
+                {
+                    // move right
+                    if (currentNode.right == null)
                     {
-                        // move right
-                        if (currentNode.right == null)
-                        {
-                            currentNode.right = new BinaryTreeNode(myValue);
-                        }
-                        else
-                        {
-                            currentNode = currentNode.right;
-                        }
+                        currentNode.right = new BinaryTreeNode(myValue);
+                        insert = true;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.right;
                     }
                 }
             } while (!insert);
         }//end function
 
+        int counter = 0;
+
         public void PrintTreeSequential(BinaryTreeNode node, ref string myString)
         {
-            if (node == null)
+           
+            if (counter == 0)
             {
                 node = top;
+                myString += PrintNode(node);
+                counter = 1;
             }
 
             if (node.left != null)
             {
-                PrintTreeSequential(node.left, ref myString);
-                myString += node.GetMyValue().Result.ToString() + 
-                    "(" +
-                    node.GetMyValue().FirstNumber.ToString() +
-                    node.GetMyValue().Symbol +
-                    node.GetMyValue().SecondNumber.ToString() + 
-                    ")";
+                myString += PrintNode(node.left);
+                PrintTreeSequential(node.left, ref myString);              
             }
-            else
+            else if (node.right != null)
             {
-                myString += node.GetMyValue().Result.ToString() +
-                    "(" +
-                    node.GetMyValue().FirstNumber.ToString() +
-                    node.GetMyValue().Symbol +
-                    node.GetMyValue().SecondNumber.ToString() +
-                    ")";
+                myString += PrintNode(node.right);
+                PrintTreeSequential(node.right, ref myString);             
             }
+        }
 
-            if (node.right != null)
-            {
-                PrintTreeSequential(node.right, ref myString);
-                myString += node.GetMyValue().Result.ToString() +
-                    "(" +
-                    node.GetMyValue().FirstNumber.ToString() +
-                    node.GetMyValue().Symbol +
-                    node.GetMyValue().SecondNumber.ToString() +
-                    ")";
-            }
-            else
-            {
-                myString += node.GetMyValue().Result.ToString() +
-                    "(" +
-                    node.GetMyValue().FirstNumber.ToString() +
-                    node.GetMyValue().Symbol +
-                    node.GetMyValue().SecondNumber.ToString() +
-                    ")";
-            }
+        private string PrintNode(BinaryTreeNode node)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            sb.Append(node.treeEquation.Result.ToString());
+            sb.Append("(");
+            sb.Append(node.treeEquation.FirstNumber.ToString());
+            sb.Append(node.treeEquation.Symbol);
+            sb.Append(node.treeEquation.SecondNumber.ToString());
+            sb.Append(")");
+
+            return sb.ToString();
         }
     }
 }

@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
-    class BinaryTreeNode
+    class LinkListNode
     {
         public EquationProperties equation;
 
-        public BinaryTreeNode previous;
-        public BinaryTreeNode next;
+        public LinkListNode previous;
+        public LinkListNode next;
+
+        public LinkListNode(EquationProperties equation)
+        {
+            this.equation = equation;
+        }
 
         public EquationProperties GetMyValue()
         {
@@ -22,29 +27,29 @@ namespace ArithmeticChallenge.NodeFunctions
             this.equation = equation;
         }
 
-        public void SetNext(BinaryTreeNode aNode)
+        public void SetNext(LinkListNode aNode)
         {
             this.next = aNode;
         }
 
-        public BinaryTreeNode getNext()
+        public LinkListNode GetNext()
         {
             return this.next;
         }
 
-        public void SetPrevious(BinaryTreeNode aNode)
+        public void SetPrevious(LinkListNode aNode)
         {
             this.previous = aNode;
         }
 
-        public BinaryTreeNode GetPrevious()
+        public LinkListNode GetPrevious()
         {
             return this.previous;
         }
 
         public string NodeToString()
         {
-            return equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber + "=" + equation.Result;
+            return equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber.ToString() + "=" + equation.Result.ToString();
         }
     }
 }

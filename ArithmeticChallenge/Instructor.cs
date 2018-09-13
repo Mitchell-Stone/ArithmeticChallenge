@@ -3,14 +3,11 @@ using ArithmeticChallenge.NodeFunctions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ArithmeticChallenge
@@ -27,11 +24,11 @@ namespace ArithmeticChallenge
 
         EquationProperties equation;
 
-        EquationNodeList equationNodeList = new EquationNodeList();
+        LinkListNodeList equationNodeList = new LinkListNodeList();
 
-        EquationNodeList incorrectAnswers = new EquationNodeList();
+        LinkListNodeList incorrectAnswers = new LinkListNodeList();
 
-        BinaryTree binaryTree = null;
+        BinaryTree binaryTree = new BinaryTree();
 
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
@@ -166,9 +163,9 @@ namespace ArithmeticChallenge
         }
 
         private void ShowIncorrectAnswer(EquationProperties equation)
-        {         
+        {
             // Create a new node
-            BinaryTreeNode node = new BinaryTreeNode(equation);
+            LinkListNode node = new LinkListNode(equation);
             incorrectAnswers.AddEquationNode(node);
 
             // Build the string to show in the incorrect answer box
@@ -213,29 +210,12 @@ namespace ArithmeticChallenge
                 btn_send.Enabled = true;
             }
 
-
             // Add equation to list to be displayed
             equations.Insert(0, equation);
 
             // Create new node and add to nodelist
-            BinaryTreeNode node = new BinaryTreeNode(equation);
+            LinkListNode node = new LinkListNode(equation);
             equationNodeList.AddEquationNode(node);
-
-            // Build the string to be dicplayed for all equations entered
-            //StringBuilder sb = new StringBuilder();
-            //if (rtb_linkList.Text == "")
-            //{
-            //    sb.Append("Head <-> ");
-            //    sb.Append(equationNodeList.getCurrentNode().NodeToString());
-            //}
-            //else
-            //{
-            //    sb.Append(rtb_linkList.Text);
-            //    sb.Append(" <-> ");
-            //    sb.Append(equationNodeList.getCurrentNode().NodeToString());
-            //}
-
-            //rtb_linkList.Text = sb.ToString();
 
             RefreshResultDatagrid();
         }
