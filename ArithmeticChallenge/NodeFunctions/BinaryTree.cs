@@ -85,6 +85,21 @@ namespace ArithmeticChallenge.NodeFunctions
             }
         }
 
+        public BinaryTreeNode FindNodeByResultValue(BinaryTreeNode node, int resultValue)
+        {
+            //returns the node where the result value equals the search value
+            if (node == null)
+            {
+                return null;
+            }
+            if (node.treeEquation.Result == resultValue)
+            {
+                return node;
+            }
+            if (node.treeEquation.Result > resultValue) return FindNodeByResultValue(node.left, resultValue);
+            return FindNodeByResultValue(node.right, resultValue);
+        }
+
         private static string PrintNode(BinaryTreeNode node)
         {
             StringBuilder sb = new StringBuilder();

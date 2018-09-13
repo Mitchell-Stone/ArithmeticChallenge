@@ -1,5 +1,6 @@
 ﻿using ArithmeticChallenge.NodeFunctions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,6 +61,25 @@ namespace ArithmeticChallenge.Controllers
                     break;
             }
             return result;
+        }
+
+        public static Hashtable NodeHastTable(LinkListNodeList nodeList)
+        {
+            //returns a hash table containing all the nodes
+            Hashtable tempTable = new Hashtable();
+            int count = 1;
+            for (LinkListNode i = nodeList.CurrentNode; i.GetNext() != null; i = i.GetNext())
+            {
+                tempTable.Add(count.ToString(), i);
+                count++;
+            }
+            return tempTable;
+        }
+
+        public static LinkListNode SearchNodeDict(Hashtable nodeHashtable, LinkListNode searchResult)
+        {
+            //uses linq to search through the hastable for a node
+            return (LinkListNode)nodeHashtable.Values.OfType<LinkListNode>().Where(x => x == searchResult);
         }
 
         public static string PrintLinkList(LinkListNodeList nodeList)

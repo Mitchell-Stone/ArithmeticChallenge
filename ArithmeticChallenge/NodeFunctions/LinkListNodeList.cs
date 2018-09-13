@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,39 @@ namespace ArithmeticChallenge.NodeFunctions
                 setHeadNode(CurrentNode);
                 count++;
             }
+        }
+
+        public void SortList()
+        {
+            //sorts the list by the equation result
+            LinkListNode current = HeadNode;
+            for (LinkListNode i = current; i.GetNext() != null; i = i.GetNext())
+            {
+                for (LinkListNode j = i.GetNext(); j != null; j = j.GetNext())
+                {
+                    if (i.GetMyValue().Result > j.GetMyValue().Result)
+                    {
+                        var Temp = j.GetMyValue();
+                        j.SetMyValue(i.GetMyValue());
+                        i.SetMyValue(Temp);
+                    }
+                }
+            }
+        }
+
+        public int binarySearch(LinkListNode searchValue)
+        {
+            //sorts the link list by result
+            SortList();
+            LinkListNode current = HeadNode;
+            ArrayList myTempList = new ArrayList();
+            for (LinkListNode i = current; i != null; i = i.GetNext())
+            {
+                myTempList.Add(i.GetMyValue());
+            }
+
+            //returns the integer value of where the node sits in the node list
+            return myTempList.BinarySearch(searchValue);
         }
     }
 }

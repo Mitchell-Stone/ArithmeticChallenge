@@ -36,8 +36,6 @@ namespace ArithmeticChallenge
 
         LinkListNodeList equationNodeList = new LinkListNodeList();
 
-        LinkListNodeList incorrectAnswers = new LinkListNodeList();
-
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
 
