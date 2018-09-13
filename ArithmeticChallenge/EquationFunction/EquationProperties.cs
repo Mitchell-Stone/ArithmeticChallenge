@@ -11,19 +11,19 @@ namespace ArithmeticChallenge
     class EquationProperties
     {
         [JsonProperty("first_number")]
-        public ushort FirstNumber { get; set; }
+        public int FirstNumber { get; set; }
         [JsonProperty("second_number")]
-        public ushort SecondNumber { get; set; }
+        public int SecondNumber { get; set; }
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
         [JsonProperty("result")]
-        public ushort Result { get; set; }
+        public int Result { get; set; }
         [JsonProperty("is_correct")]
         public bool IsCorrect { get; set; }
 
         public EquationProperties() { }
 
-        public EquationProperties(ushort firstNumber, ushort secondNumber, string symbol, ushort result, bool isCorrect)
+        public EquationProperties(int firstNumber, int secondNumber, string symbol, int result, bool isCorrect)
         {
             FirstNumber = firstNumber;
             SecondNumber = secondNumber;

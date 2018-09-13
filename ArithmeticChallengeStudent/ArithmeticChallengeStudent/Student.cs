@@ -1,4 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿/*
+* 
+*
+*
+*   
+*
+*/
+
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -13,6 +21,8 @@ namespace ArithmeticChallengeStudent
         private byte[] buffer;
         private int PORT = 3333;
 
+        string message = null;
+
         static EquationProperties equation;
 
         public Student()
@@ -23,7 +33,7 @@ namespace ArithmeticChallengeStudent
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 //connect to the specified host.
-                var endPoint = new IPEndPoint(IPAddress.Parse("192.168.1.4"), PORT);
+                var endPoint = new IPEndPoint(IPAddress.Parse("172.17.124.43"), PORT);
                 clientSocket.BeginConnect(endPoint, ConnectCallback, null);
             }
             catch (SocketException ex)
@@ -40,22 +50,25 @@ namespace ArithmeticChallengeStudent
         {
             try
             {
-                int received = clientSocket.EndReceive(AR);
 
+                int received = clientSocket.EndReceive(AR);
                 if (received == 0)
                 {
                     return;
                 }
 
-                string message = Encoding.ASCII.GetString(buffer);
-                int index = message.IndexOf("\0");
-                message = message.Substring(0, index);
-                
-                if (message == "Connected to Server")
+                message = Encoding.ASCII.GetString(buffer);
+
+                int index = message.IndexOf("}");
+                message = message.Substring(0, index + 1);
+
+                if (message.Contains("server_connection"))
                 {
-                    Console.WriteLine(message);
+                    ServerMessages serverMessage = JsonConvert.DeserializeObject<ServerMessages>(message);
+                    Console.WriteLine("Message from the server: " + serverMessage.Message);
+                    buffer = new byte[clientSocket.ReceiveBufferSize];
                 }
-                else if (DeserializeJson(message) != null) 
+                else if (DeserializeJson(message) != null)
                 {
                     Console.WriteLine(message);
                     equation = DeserializeJson(message);
@@ -65,6 +78,7 @@ namespace ArithmeticChallengeStudent
                         tb_question.Text = equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber.ToString() + "=";
                         btn_submit.Enabled = true;
                     });
+                    buffer = new byte[clientSocket.ReceiveBufferSize];
                 }
 
                 // Start receiving data again.
@@ -144,6 +158,8 @@ namespace ArithmeticChallengeStudent
                 SendMessage(json);
             }
             btn_submit.Enabled = false;
+            tb_answer.Clear();
+            tb_question.Clear();
         }
 
         private void SendMessage(string json)
@@ -151,7 +167,7 @@ namespace ArithmeticChallengeStudent
             var sendData = Encoding.ASCII.GetBytes(json);
             clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
         }
-        
+
         private void btn_exit_Click(object sender, EventArgs e)
         {
             this.Close();

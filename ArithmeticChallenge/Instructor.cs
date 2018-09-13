@@ -48,7 +48,7 @@ namespace ArithmeticChallenge
         {
             try
             {
-                serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT)); // bind on port  3333
+                serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT)); //Binds on the specified port
                 serverSocket.Listen(10); // listening on a backlog of ten pending connections
                 serverSocket.BeginAccept(AcceptCallback, null); // start accepting incoming 
             }
@@ -67,10 +67,10 @@ namespace ArithmeticChallenge
             try
             {
                 clientSocket = serverSocket.EndAccept(AR); // set up the clientsocket
-                buffer = new byte[clientSocket.ReceiveBufferSize]; // intialise the buffer to proper buffer size
+                buffer = new byte[clientSocket.ReceiveBufferSize]; // intialise the buffer to the correct buffer size
 
                 // Send a message to the newly connected client.
-                var sendData = Encoding.ASCII.GetBytes("Connected to Server");
+                var sendData = Encoding.ASCII.GetBytes("{\"server_connection\" : \"connected\"}");
                 clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
                 // Listen for client data.
                 clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
@@ -107,6 +107,11 @@ namespace ArithmeticChallenge
         {
             try
             {
+                Invoke((Action)delegate
+                {
+                    btn_send.Enabled = true;
+                });
+                    
                 // Socket exception will raise here when client closes, as this sample does not
                 // demonstrate graceful disconnects for the sake of simplicity.
                 int received = clientSocket.EndReceive(AR);
@@ -118,9 +123,13 @@ namespace ArithmeticChallenge
 
                 // The received data is deserialized in the EquationProperties.
                 string message = Encoding.ASCII.GetString(buffer);
-                int index = message.IndexOf("\0");
-                message = message.Substring(0, index);
+                // Any excess characters are stipped of the end
+                int index = message.IndexOf("}");
+                message = message.Substring(0, index + 1);
+                // Deserialize the json string into the equation object
                 equation = JsonConvert.DeserializeObject<EquationProperties>(message);
+
+                // Check if answer is incorrect
                 if (equation.IsCorrect == false)
                 {
                     ShowIncorrectAnswer(equation);
@@ -141,24 +150,26 @@ namespace ArithmeticChallenge
         }
 
         private void ShowIncorrectAnswer(EquationProperties equation)
-        {            
+        {         
+            // Create a new node
             EquationNode node = new EquationNode(equation);
             incorrectAnswers.AddEquationNode(node);
 
+            // Build the string to show in the incorrect answer box
             StringBuilder sb = new StringBuilder();
-
             Invoke((Action)delegate
             {
+                // Appends the data from the new node to the existing string
                 if (rtb_incorrect.Text == "")
                 {
                     sb.Append("Head <-> ");
-                    sb.Append(equationNodeList.getCurrentNode().NodeToString());
+                    sb.Append(incorrectAnswers.getCurrentNode().NodeToString());
                 }
                 else
                 {
                     sb.Append(rtb_linkList.Text);
                     sb.Append(" <-> ");
-                    sb.Append(equationNodeList.getCurrentNode().NodeToString());
+                    sb.Append(incorrectAnswers.getCurrentNode().NodeToString());
                 }
 
                 rtb_incorrect.Text = sb.ToString();
@@ -168,21 +179,25 @@ namespace ArithmeticChallenge
 
         private void btn_send_Click(object sender, EventArgs e)
         {
-            //btn_send.Enabled = false;
-            EquationProperties equation = new EquationProperties(Convert.ToUInt16(tb_firstNumber.Text),
-                Convert.ToUInt16(tb_secondNumber.Text), dd_operator.Text, Convert.ToUInt16(tb_answer.Text), false);
+            // Set button state to false
+            btn_send.Enabled = false;
+            // Create a new equation object from the given data
+            EquationProperties equation = new EquationProperties(Convert.ToInt32(tb_firstNumber.Text),
+                Convert.ToInt32(tb_secondNumber.Text), dd_operator.Text, Convert.ToInt32(tb_answer.Text), false);
 
+            // Serialize the object into a json string and send the data to the client
             string json = JsonConvert.SerializeObject(equation);
             var sendData = Encoding.ASCII.GetBytes(json);
             clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
 
-            //add to list to be displayed
+            // Add equation to list to be displayed
             equations.Add(equation);
 
-            //create new node and add to nodelist
+            // Create new node and add to nodelist
             EquationNode node = new EquationNode(equation);
             equationNodeList.AddEquationNode(node);
 
+            // Build the string to be dicplayed for all equations entered
             StringBuilder sb = new StringBuilder();
             if (rtb_linkList.Text == "")
             {
