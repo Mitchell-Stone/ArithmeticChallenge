@@ -40,9 +40,9 @@
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(188, 226);
+            this.btn_exit.Location = new System.Drawing.Point(94, 196);
             this.btn_exit.Name = "btn_exit";
-            this.btn_exit.Size = new System.Drawing.Size(75, 23);
+            this.btn_exit.Size = new System.Drawing.Size(89, 39);
             this.btn_exit.TabIndex = 0;
             this.btn_exit.Text = "Exit";
             this.btn_exit.UseVisualStyleBackColor = true;
@@ -50,9 +50,9 @@
             // 
             // btn_submit
             // 
-            this.btn_submit.Location = new System.Drawing.Point(188, 178);
+            this.btn_submit.Location = new System.Drawing.Point(94, 151);
             this.btn_submit.Name = "btn_submit";
-            this.btn_submit.Size = new System.Drawing.Size(75, 23);
+            this.btn_submit.Size = new System.Drawing.Size(89, 39);
             this.btn_submit.TabIndex = 1;
             this.btn_submit.Text = "Submit";
             this.btn_submit.UseVisualStyleBackColor = true;
@@ -62,6 +62,7 @@
             // 
             this.tb_question.Location = new System.Drawing.Point(137, 74);
             this.tb_question.Name = "tb_question";
+            this.tb_question.ReadOnly = true;
             this.tb_question.Size = new System.Drawing.Size(100, 20);
             this.tb_question.TabIndex = 2;
             // 

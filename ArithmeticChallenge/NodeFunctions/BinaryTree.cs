@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
@@ -9,6 +10,11 @@ namespace ArithmeticChallenge.NodeFunctions
         public BinaryTree()
         {
             top = null;
+        }
+
+        public BinaryTree(EquationProperties value)
+        {
+            top = new BinaryTreeNode(value);
         }
 
         public void Add(EquationProperties myValue)
@@ -56,31 +62,30 @@ namespace ArithmeticChallenge.NodeFunctions
             } while (!insert);
         }//end function
 
-        int counter = 0;
-
-        public void PrintTreeSequential(BinaryTreeNode node, ref string myString)
+        public void PrintTree(BinaryTreeNode node, ref string printString)
         {
-           
-            if (counter == 0)
+            if (node == null)
             {
                 node = top;
-                myString += PrintNode(node);
-                counter = 1;
+                printString += PrintNode(node);
             }
 
             if (node.left != null)
             {
-                myString += PrintNode(node.left);
-                PrintTreeSequential(node.left, ref myString);              
+                PrintTree(node.left, ref printString);
+                printString += PrintNode(node.left);
             }
-            else if (node.right != null)
+            else
             {
-                myString += PrintNode(node.right);
-                PrintTreeSequential(node.right, ref myString);             
+                printString += PrintNode(node);
+            }
+            if (node.right != null)
+            {
+                PrintTree(node.right, ref printString);
             }
         }
 
-        private string PrintNode(BinaryTreeNode node)
+        private static string PrintNode(BinaryTreeNode node)
         {
             StringBuilder sb = new StringBuilder();
 

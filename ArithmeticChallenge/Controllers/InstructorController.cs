@@ -61,5 +61,32 @@ namespace ArithmeticChallenge.Controllers
             }
             return result;
         }
+
+        public static string PrintLinkList(LinkListNodeList nodeList)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("HEAD");
+
+            if (nodeList.HeadNode.GetNext() == null)
+            {
+                sb.Append("<-> " + nodeList.HeadNode.NodeToString());
+            }
+            else if (nodeList.HeadNode.GetNext() != null)
+            {
+                sb.Append("<-> " + nodeList.HeadNode.NodeToString());
+                nodeList.CurrentNode = nodeList.HeadNode.GetNext();
+                while (nodeList.CurrentNode != null)
+                {
+                    if (nodeList.CurrentNode.GetMyValue().IsCorrect == false)
+                    {
+                        sb.Append(" <-> " + nodeList.CurrentNode.NodeToString());
+                        nodeList.CurrentNode = nodeList.CurrentNode.GetNext();
+                    }
+                }
+            }
+
+            sb.Append(" <-> TAIL");
+            return sb.ToString();
+        }
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EquationProperties.cs" />
+    <Compile Include="ServerMessages.cs" />
     <Compile Include="Student.cs">
       <SubType>Form</SubType>
     </Compile>

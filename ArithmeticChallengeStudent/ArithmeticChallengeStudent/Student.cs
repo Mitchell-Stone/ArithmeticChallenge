@@ -21,6 +21,9 @@ namespace ArithmeticChallengeStudent
         private byte[] buffer;
         private int PORT = 3333;
 
+        private string TafeIP = "172.17.124.43";
+        private string HomeIP = "192.168.1.4";
+
         string message = null;
 
         static EquationProperties equation;
@@ -33,7 +36,7 @@ namespace ArithmeticChallengeStudent
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 //connect to the specified host.
-                var endPoint = new IPEndPoint(IPAddress.Parse("172.17.124.43"), PORT);
+                var endPoint = new IPEndPoint(IPAddress.Parse(HomeIP), PORT);
                 clientSocket.BeginConnect(endPoint, ConnectCallback, null);
             }
             catch (SocketException ex)
@@ -147,12 +150,14 @@ namespace ArithmeticChallengeStudent
         {
             if (tb_answer.Text == equation.Result.ToString())
             {
+                MessageBox.Show("That is correct!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 equation.IsCorrect = true;
                 string json = JsonConvert.SerializeObject(equation);
                 SendMessage(json);
             }
             else
             {
+                MessageBox.Show("That is incorrect!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 equation.IsCorrect = false;
                 string json = JsonConvert.SerializeObject(equation);
                 SendMessage(json);

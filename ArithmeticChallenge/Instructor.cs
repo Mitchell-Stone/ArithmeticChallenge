@@ -1,4 +1,14 @@
-﻿using ArithmeticChallenge.Controllers;
+﻿/*
+ * 
+ * 
+ * 
+ *     
+ * 
+ *  known bugs: error occurs when non-numerical characters are put into the equation text boxes
+ */
+
+
+using ArithmeticChallenge.Controllers;
 using ArithmeticChallenge.NodeFunctions;
 using Newtonsoft.Json;
 using System;
@@ -27,8 +37,6 @@ namespace ArithmeticChallenge
         LinkListNodeList equationNodeList = new LinkListNodeList();
 
         LinkListNodeList incorrectAnswers = new LinkListNodeList();
-
-        BinaryTree binaryTree = new BinaryTree();
 
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
@@ -105,6 +113,8 @@ namespace ArithmeticChallenge
             }
         }
 
+        string printString = "";
+
         private void ReceiveCallback(IAsyncResult AR)
         {
             try
@@ -126,14 +136,29 @@ namespace ArithmeticChallenge
                 // Deserialize the json string into the equation object
                 equation = JsonConvert.DeserializeObject<EquationProperties>(message);
 
-                binaryTree.Add(equation);
+                // Create new node and add to nodelist
+                LinkListNode node = new LinkListNode(equation);
+                equationNodeList.AddEquationNode(node);
 
-                string printString = "";
-                BinaryTreeNode root = binaryTree.top;
-                binaryTree.PrintTreeSequential(root, ref printString);
+                BinaryTree tree = new BinaryTree();
+                if (tree.top == null)
+                {
+                    tree.top = new BinaryTreeNode(equation);
+                }
+                else
+                {
+                    tree.Add(equation);
+                }
+                
+                string tempString = "";
+                BinaryTreeNode root = tree.top;
+                tree.PrintTree(root, ref tempString);
+
+                printString += tempString + ", ";
 
                 Invoke((Action)delegate
                 {
+                    printString = printString.Remove(printString.Length - 1);
                     rtb_linkList.Text = printString;
                     btn_send.Enabled = true;
                 });
@@ -141,7 +166,13 @@ namespace ArithmeticChallenge
                 // Check if answer is incorrect
                 if (equation.IsCorrect == false)
                 {
-                    ShowIncorrectAnswer(equation);
+                    Invoke((Action)delegate
+                    {
+                        if (equation.IsCorrect == false)
+                        {
+                            rtb_incorrect.Text = InstructorController.PrintLinkList(equationNodeList);
+                        }                     
+                    });
                 }
 
                 // Start receiving data again.
@@ -162,33 +193,6 @@ namespace ArithmeticChallenge
             }
         }
 
-        private void ShowIncorrectAnswer(EquationProperties equation)
-        {
-            // Create a new node
-            LinkListNode node = new LinkListNode(equation);
-            incorrectAnswers.AddEquationNode(node);
-
-            // Build the string to show in the incorrect answer box
-            StringBuilder sb = new StringBuilder();
-            Invoke((Action)delegate
-            {
-                // Appends the data from the new node to the existing string
-                if (rtb_incorrect.Text == "")
-                {
-                    sb.Append("Head <-> ");
-                    sb.Append(incorrectAnswers.getCurrentNode().NodeToString());
-                }
-                else
-                {
-                    sb.Append(rtb_incorrect.Text);
-                    sb.Append(" <-> ");
-                    sb.Append(incorrectAnswers.getCurrentNode().NodeToString());
-                }
-
-                rtb_incorrect.Text = sb.ToString();
-            });     
-        }
-
         private void btn_send_Click(object sender, EventArgs e)
         {
             // Set button state to false
@@ -206,16 +210,12 @@ namespace ArithmeticChallenge
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Unable to send message, there are no clients connected.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Unable to send message, there is no client connected.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btn_send.Enabled = true;
             }
 
             // Add equation to list to be displayed
             equations.Insert(0, equation);
-
-            // Create new node and add to nodelist
-            LinkListNode node = new LinkListNode(equation);
-            equationNodeList.AddEquationNode(node);
 
             RefreshResultDatagrid();
         }
