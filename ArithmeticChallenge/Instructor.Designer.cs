@@ -38,9 +38,6 @@
             this.dd_operator = new System.Windows.Forms.ComboBox();
             this.dgv_questionsAsked = new System.Windows.Forms.DataGridView();
             this.btn_send = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -55,9 +52,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
             this.rtb_linkList = new System.Windows.Forms.RichTextBox();
             this.rtb_incorrect = new System.Windows.Forms.RichTextBox();
+            this.lbl_clientCount = new System.Windows.Forms.Label();
+            this.btn_sortOne = new System.Windows.Forms.Button();
+            this.btn_sortTwo = new System.Windows.Forms.Button();
+            this.btn_sortThree = new System.Windows.Forms.Button();
+            this.btn_sortFour = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_questionsAsked)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,9 +68,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 70);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 18);
+            this.label1.Size = new System.Drawing.Size(227, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter question, then click Send.";
+            this.label1.Text = "Enter a question, then click Send.";
             // 
             // label2
             // 
@@ -103,34 +104,38 @@
             // 
             // tb_firstNumber
             // 
+            this.tb_firstNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_firstNumber.Location = new System.Drawing.Point(143, 96);
             this.tb_firstNumber.Name = "tb_firstNumber";
-            this.tb_firstNumber.Size = new System.Drawing.Size(100, 20);
+            this.tb_firstNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_firstNumber.TabIndex = 5;
             this.tb_firstNumber.TextChanged += new System.EventHandler(this.tb_firstNumber_TextChanged);
             // 
             // tb_secondNumber
             // 
+            this.tb_secondNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_secondNumber.Location = new System.Drawing.Point(143, 156);
             this.tb_secondNumber.Name = "tb_secondNumber";
-            this.tb_secondNumber.Size = new System.Drawing.Size(100, 20);
+            this.tb_secondNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_secondNumber.TabIndex = 7;
             this.tb_secondNumber.TextChanged += new System.EventHandler(this.tb_secondNumber_TextChanged);
             // 
             // tb_answer
             // 
+            this.tb_answer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_answer.Location = new System.Drawing.Point(143, 184);
             this.tb_answer.Name = "tb_answer";
             this.tb_answer.ReadOnly = true;
-            this.tb_answer.Size = new System.Drawing.Size(100, 20);
+            this.tb_answer.Size = new System.Drawing.Size(100, 22);
             this.tb_answer.TabIndex = 8;
             // 
             // dd_operator
             // 
+            this.dd_operator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dd_operator.FormattingEnabled = true;
             this.dd_operator.Location = new System.Drawing.Point(143, 127);
             this.dd_operator.Name = "dd_operator";
-            this.dd_operator.Size = new System.Drawing.Size(100, 21);
+            this.dd_operator.Size = new System.Drawing.Size(100, 24);
             this.dd_operator.TabIndex = 9;
             this.dd_operator.SelectedIndexChanged += new System.EventHandler(this.dd_operator_SelectedIndexChanged);
             // 
@@ -139,7 +144,7 @@
             this.dgv_questionsAsked.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_questionsAsked.Location = new System.Drawing.Point(303, 70);
             this.dgv_questionsAsked.Name = "dgv_questionsAsked";
-            this.dgv_questionsAsked.Size = new System.Drawing.Size(455, 150);
+            this.dgv_questionsAsked.Size = new System.Drawing.Size(455, 172);
             this.dgv_questionsAsked.TabIndex = 10;
             // 
             // btn_send
@@ -152,38 +157,11 @@
             this.btn_send.UseVisualStyleBackColor = true;
             this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(351, 227);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Sort 1";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(571, 226);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Sort 2";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(664, 226);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 16;
-            this.button4.Text = "Sort 3";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(8, 593);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(80, 32);
             this.button1.TabIndex = 17;
             this.button1.Text = "Display";
             this.button1.UseVisualStyleBackColor = true;
@@ -200,9 +178,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(89, 593);
+            this.button5.Location = new System.Drawing.Point(94, 593);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(86, 32);
             this.button5.TabIndex = 19;
             this.button5.Text = "Save";
             this.button5.UseVisualStyleBackColor = true;
@@ -211,7 +189,7 @@
             // 
             this.button6.Location = new System.Drawing.Point(303, 593);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.Size = new System.Drawing.Size(84, 32);
             this.button6.TabIndex = 22;
             this.button6.Text = "Save";
             this.button6.UseVisualStyleBackColor = true;
@@ -228,9 +206,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(222, 593);
+            this.button7.Location = new System.Drawing.Point(216, 593);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.Size = new System.Drawing.Size(81, 32);
             this.button7.TabIndex = 20;
             this.button7.Text = "Display";
             this.button7.UseVisualStyleBackColor = true;
@@ -239,7 +217,7 @@
             // 
             this.button8.Location = new System.Drawing.Point(512, 593);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.Size = new System.Drawing.Size(84, 32);
             this.button8.TabIndex = 25;
             this.button8.Text = "Save";
             this.button8.UseVisualStyleBackColor = true;
@@ -256,18 +234,18 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(431, 593);
+            this.button9.Location = new System.Drawing.Point(423, 593);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.Size = new System.Drawing.Size(83, 32);
             this.button9.TabIndex = 23;
             this.button9.Text = "Dislpay";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(683, 593);
+            this.btn_exit.Location = new System.Drawing.Point(641, 593);
             this.btn_exit.Name = "btn_exit";
-            this.btn_exit.Size = new System.Drawing.Size(75, 23);
+            this.btn_exit.Size = new System.Drawing.Size(117, 32);
             this.btn_exit.TabIndex = 26;
             this.btn_exit.Text = "Exit";
             this.btn_exit.UseVisualStyleBackColor = true;
@@ -297,7 +275,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(12, 396);
+            this.label10.Location = new System.Drawing.Point(5, 272);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(170, 18);
             this.label10.TabIndex = 28;
@@ -307,45 +285,90 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(12, 255);
+            this.label11.Location = new System.Drawing.Point(5, 396);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(83, 18);
             this.label11.TabIndex = 29;
             this.label11.Text = "Binary Tree";
             // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(460, 227);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 30;
-            this.button10.Text = "Sort 3";
-            this.button10.UseVisualStyleBackColor = true;
-            // 
             // rtb_linkList
             // 
-            this.rtb_linkList.Location = new System.Drawing.Point(12, 276);
+            this.rtb_linkList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb_linkList.Location = new System.Drawing.Point(8, 430);
             this.rtb_linkList.Name = "rtb_linkList";
-            this.rtb_linkList.Size = new System.Drawing.Size(727, 100);
+            this.rtb_linkList.Size = new System.Drawing.Size(750, 117);
             this.rtb_linkList.TabIndex = 31;
             this.rtb_linkList.Text = "";
             // 
             // rtb_incorrect
             // 
-            this.rtb_incorrect.Location = new System.Drawing.Point(12, 417);
+            this.rtb_incorrect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb_incorrect.Location = new System.Drawing.Point(8, 293);
             this.rtb_incorrect.Name = "rtb_incorrect";
-            this.rtb_incorrect.Size = new System.Drawing.Size(727, 100);
+            this.rtb_incorrect.Size = new System.Drawing.Size(750, 100);
             this.rtb_incorrect.TabIndex = 32;
             this.rtb_incorrect.Text = "";
+            // 
+            // lbl_clientCount
+            // 
+            this.lbl_clientCount.AutoSize = true;
+            this.lbl_clientCount.Location = new System.Drawing.Point(13, 632);
+            this.lbl_clientCount.Name = "lbl_clientCount";
+            this.lbl_clientCount.Size = new System.Drawing.Size(0, 13);
+            this.lbl_clientCount.TabIndex = 33;
+            // 
+            // btn_sortOne
+            // 
+            this.btn_sortOne.Location = new System.Drawing.Point(337, 248);
+            this.btn_sortOne.Name = "btn_sortOne";
+            this.btn_sortOne.Size = new System.Drawing.Size(75, 23);
+            this.btn_sortOne.TabIndex = 34;
+            this.btn_sortOne.Text = "Sort 1";
+            this.btn_sortOne.UseVisualStyleBackColor = true;
+            this.btn_sortOne.Click += new System.EventHandler(this.btn_sortOne_Click);
+            // 
+            // btn_sortTwo
+            // 
+            this.btn_sortTwo.Location = new System.Drawing.Point(445, 248);
+            this.btn_sortTwo.Name = "btn_sortTwo";
+            this.btn_sortTwo.Size = new System.Drawing.Size(75, 23);
+            this.btn_sortTwo.TabIndex = 35;
+            this.btn_sortTwo.Text = "Sort 2";
+            this.btn_sortTwo.UseVisualStyleBackColor = true;
+            this.btn_sortTwo.Click += new System.EventHandler(this.btn_sortTwo_Click);
+            // 
+            // btn_sortThree
+            // 
+            this.btn_sortThree.Location = new System.Drawing.Point(553, 248);
+            this.btn_sortThree.Name = "btn_sortThree";
+            this.btn_sortThree.Size = new System.Drawing.Size(75, 23);
+            this.btn_sortThree.TabIndex = 36;
+            this.btn_sortThree.Text = "Sort 3";
+            this.btn_sortThree.UseVisualStyleBackColor = true;
+            this.btn_sortThree.Click += new System.EventHandler(this.btn_sortThree_Click);
+            // 
+            // btn_sortFour
+            // 
+            this.btn_sortFour.Location = new System.Drawing.Point(658, 248);
+            this.btn_sortFour.Name = "btn_sortFour";
+            this.btn_sortFour.Size = new System.Drawing.Size(75, 23);
+            this.btn_sortFour.TabIndex = 37;
+            this.btn_sortFour.Text = "Sort 4";
+            this.btn_sortFour.UseVisualStyleBackColor = true;
+            this.btn_sortFour.Click += new System.EventHandler(this.btn_sortFour_Click);
             // 
             // Instructor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 637);
+            this.ClientSize = new System.Drawing.Size(770, 652);
+            this.Controls.Add(this.btn_sortFour);
+            this.Controls.Add(this.btn_sortThree);
+            this.Controls.Add(this.btn_sortTwo);
+            this.Controls.Add(this.btn_sortOne);
+            this.Controls.Add(this.lbl_clientCount);
             this.Controls.Add(this.rtb_incorrect);
             this.Controls.Add(this.rtb_linkList);
-            this.Controls.Add(this.button10);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -359,9 +382,6 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_send);
             this.Controls.Add(this.dgv_questionsAsked);
             this.Controls.Add(this.dd_operator);
@@ -393,9 +413,6 @@
         private System.Windows.Forms.ComboBox dd_operator;
         private System.Windows.Forms.DataGridView dgv_questionsAsked;
         private System.Windows.Forms.Button btn_send;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button5;
@@ -410,9 +427,13 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button10;
         private System.Windows.Forms.RichTextBox rtb_linkList;
         private System.Windows.Forms.RichTextBox rtb_incorrect;
+        private System.Windows.Forms.Label lbl_clientCount;
+        private System.Windows.Forms.Button btn_sortOne;
+        private System.Windows.Forms.Button btn_sortTwo;
+        private System.Windows.Forms.Button btn_sortThree;
+        private System.Windows.Forms.Button btn_sortFour;
     }
 }
 

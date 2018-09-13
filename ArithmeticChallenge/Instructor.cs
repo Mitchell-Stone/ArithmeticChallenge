@@ -31,6 +31,8 @@ namespace ArithmeticChallenge
 
         EquationNodeList incorrectAnswers = new EquationNodeList();
 
+        BinaryTree binaryTree = null;
+
         //symbols used in the dropdown to select for calculationss
         string[] operators = { "+", "-", "x", "/" };
 
@@ -68,7 +70,10 @@ namespace ArithmeticChallenge
             {
                 clientSocket = serverSocket.EndAccept(AR); // set up the clientsocket
                 buffer = new byte[clientSocket.ReceiveBufferSize]; // intialise the buffer to the correct buffer size
-
+                Invoke((Action)delegate
+                {
+                    lbl_clientCount.Text = "You have 1 client connected";
+                });
                 // Send a message to the newly connected client.
                 var sendData = Encoding.ASCII.GetBytes("{\"server_connection\" : \"connected\"}");
                 clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
@@ -107,11 +112,6 @@ namespace ArithmeticChallenge
         {
             try
             {
-                Invoke((Action)delegate
-                {
-                    btn_send.Enabled = true;
-                });
-                    
                 // Socket exception will raise here when client closes, as this sample does not
                 // demonstrate graceful disconnects for the sake of simplicity.
                 int received = clientSocket.EndReceive(AR);
@@ -129,6 +129,18 @@ namespace ArithmeticChallenge
                 // Deserialize the json string into the equation object
                 equation = JsonConvert.DeserializeObject<EquationProperties>(message);
 
+                binaryTree.Add(equation);
+
+                string printString = "";
+                BinaryTreeNode root = binaryTree.top;
+                binaryTree.PrintTreeSequential(root, ref printString);
+
+                Invoke((Action)delegate
+                {
+                    rtb_linkList.Text = printString;
+                    btn_send.Enabled = true;
+                });
+
                 // Check if answer is incorrect
                 if (equation.IsCorrect == false)
                 {
@@ -142,6 +154,10 @@ namespace ArithmeticChallenge
             catch (SocketException ex)
             {
                 ShowErrorDialog(ex.Message);
+                Invoke((Action)delegate
+                {
+                    lbl_clientCount.Text = "No connected clients";
+                });
             }
             catch (ObjectDisposedException ex)
             {
@@ -152,7 +168,7 @@ namespace ArithmeticChallenge
         private void ShowIncorrectAnswer(EquationProperties equation)
         {         
             // Create a new node
-            EquationNode node = new EquationNode(equation);
+            BinaryTreeNode node = new BinaryTreeNode(equation);
             incorrectAnswers.AddEquationNode(node);
 
             // Build the string to show in the incorrect answer box
@@ -167,14 +183,13 @@ namespace ArithmeticChallenge
                 }
                 else
                 {
-                    sb.Append(rtb_linkList.Text);
+                    sb.Append(rtb_incorrect.Text);
                     sb.Append(" <-> ");
                     sb.Append(incorrectAnswers.getCurrentNode().NodeToString());
                 }
 
                 rtb_incorrect.Text = sb.ToString();
-            });
-            
+            });     
         }
 
         private void btn_send_Click(object sender, EventArgs e)
@@ -185,33 +200,42 @@ namespace ArithmeticChallenge
             EquationProperties equation = new EquationProperties(Convert.ToInt32(tb_firstNumber.Text),
                 Convert.ToInt32(tb_secondNumber.Text), dd_operator.Text, Convert.ToInt32(tb_answer.Text), false);
 
-            // Serialize the object into a json string and send the data to the client
-            string json = JsonConvert.SerializeObject(equation);
-            var sendData = Encoding.ASCII.GetBytes(json);
-            clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
+            try
+            {
+                // Serialize the object into a json string and send the data to the client
+                string json = JsonConvert.SerializeObject(equation);
+                var sendData = Encoding.ASCII.GetBytes(json);
+                clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Unable to send message, there are no clients connected.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btn_send.Enabled = true;
+            }
+
 
             // Add equation to list to be displayed
-            equations.Add(equation);
+            equations.Insert(0, equation);
 
             // Create new node and add to nodelist
-            EquationNode node = new EquationNode(equation);
+            BinaryTreeNode node = new BinaryTreeNode(equation);
             equationNodeList.AddEquationNode(node);
 
             // Build the string to be dicplayed for all equations entered
-            StringBuilder sb = new StringBuilder();
-            if (rtb_linkList.Text == "")
-            {
-                sb.Append("Head <-> ");
-                sb.Append(equationNodeList.getCurrentNode().NodeToString());
-            }
-            else
-            {
-                sb.Append(rtb_linkList.Text);
-                sb.Append(" <-> ");
-                sb.Append(equationNodeList.getCurrentNode().NodeToString());
-            }
+            //StringBuilder sb = new StringBuilder();
+            //if (rtb_linkList.Text == "")
+            //{
+            //    sb.Append("Head <-> ");
+            //    sb.Append(equationNodeList.getCurrentNode().NodeToString());
+            //}
+            //else
+            //{
+            //    sb.Append(rtb_linkList.Text);
+            //    sb.Append(" <-> ");
+            //    sb.Append(equationNodeList.getCurrentNode().NodeToString());
+            //}
 
-            rtb_linkList.Text = sb.ToString();
+            //rtb_linkList.Text = sb.ToString();
 
             RefreshResultDatagrid();
         }
@@ -282,17 +306,87 @@ namespace ArithmeticChallenge
             MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void UpdateControlStates(bool toggle)
-        {
-            Invoke((Action)delegate
-            {
-                btn_send.Enabled = toggle;
-            });
-        }
-
         private void btn_exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #region List sorting buttons
+
+        int count = 0;
+
+        private void btn_sortOne_Click(object sender, EventArgs e)
+        {
+            List<EquationProperties> tempList = new List<EquationProperties>();
+
+            if (count == 0)
+            {
+                tempList = equations.OrderBy(x => x.FirstNumber).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count++;
+            }
+            else if (count == 1)
+            {
+                tempList = equations.OrderByDescending(x => x.FirstNumber).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count = 0;
+            }           
+        }
+
+        private void btn_sortTwo_Click(object sender, EventArgs e)
+        {
+            List<EquationProperties> tempList = new List<EquationProperties>();
+
+            if (count == 0)
+            {
+                tempList = equations.OrderBy(x => x.Symbol).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count++;
+            }
+            else if (count == 1)
+            {
+                tempList = equations.OrderByDescending(x => x.Symbol).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count = 0;
+            }
+        }
+
+        private void btn_sortThree_Click(object sender, EventArgs e)
+        {
+            List<EquationProperties> tempList = new List<EquationProperties>();
+
+            if (count == 0)
+            {
+                tempList = equations.OrderBy(x => x.SecondNumber).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count++;
+            }
+            else if (count == 1)
+            {
+                tempList = equations.OrderByDescending(x => x.SecondNumber).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count = 0;
+            }
+        }
+
+        private void btn_sortFour_Click(object sender, EventArgs e)
+        {
+            List<EquationProperties> tempList = new List<EquationProperties>();
+
+            if (count == 0)
+            {
+                tempList = equations.OrderBy(x => x.Result).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count++;
+            }
+            else if (count == 1)
+            {
+                tempList = equations.OrderByDescending(x => x.Result).ToList();
+                dgv_questionsAsked.DataSource = tempList;
+                count = 0;
+            }
+        }
+
+        #endregion
     }
 }

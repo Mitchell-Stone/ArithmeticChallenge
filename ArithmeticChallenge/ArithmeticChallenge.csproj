@@ -56,6 +56,8 @@
       <DependentUpon>Instructor.cs</DependentUpon>
     </Compile>
     <Compile Include="EquationFunction\EquationProperties.cs" />
+    <Compile Include="NodeFunctions\BinaryTree.cs" />
+    <Compile Include="NodeFunctions\BinaryTreeNode.cs" />
     <Compile Include="NodeFunctions\EquationNode.cs" />
     <Compile Include="NodeFunctions\EquationNodeList.cs" />
     <Compile Include="Program.cs" />

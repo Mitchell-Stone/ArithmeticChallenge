@@ -8,15 +8,15 @@ namespace ArithmeticChallenge.NodeFunctions
 {
     class EquationNodeList
     {
-        public EquationNode HeadNode;
-        public EquationNode CurrentNode;
-        public EquationNode TailNode;
+        public BinaryTreeNode HeadNode;
+        public BinaryTreeNode CurrentNode;
+        public BinaryTreeNode TailNode;
 
         public static int count = 0;
 
         public EquationNodeList(){}
 
-        public EquationNodeList(EquationNode node)
+        public EquationNodeList(BinaryTreeNode node)
         {
             HeadNode = node;
             CurrentNode = node;
@@ -24,15 +24,15 @@ namespace ArithmeticChallenge.NodeFunctions
             count++;
         }
 
-        public EquationNode getCurrentNode() { return CurrentNode; }
-        public EquationNode getHeadNode() { return HeadNode; }
-        public EquationNode getTailNode() { return TailNode; }
+        public BinaryTreeNode getCurrentNode() { return CurrentNode; }
+        public BinaryTreeNode getHeadNode() { return HeadNode; }
+        public BinaryTreeNode getTailNode() { return TailNode; }
 
-        public void setCurrentNode(EquationNode node) { CurrentNode = node; }
-        public void setHeadNode(EquationNode node) { HeadNode = node; }
-        public void setTailNode(EquationNode node) { TailNode = node; }
+        public void setCurrentNode(BinaryTreeNode node) { CurrentNode = node; }
+        public void setHeadNode(BinaryTreeNode node) { HeadNode = node; }
+        public void setTailNode(BinaryTreeNode node) { TailNode = node; }
 
-        public void AddEquationNode(EquationNode node)
+        public void AddEquationNode(BinaryTreeNode node)
         {
             if ((HeadNode == null) && (CurrentNode == null) && (TailNode == null))
             {
