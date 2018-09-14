@@ -110,6 +110,7 @@
             this.tb_firstNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_firstNumber.TabIndex = 5;
             this.tb_firstNumber.TextChanged += new System.EventHandler(this.tb_firstNumber_TextChanged);
+            this.tb_firstNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_numbersOnly);
             // 
             // tb_secondNumber
             // 
@@ -119,6 +120,7 @@
             this.tb_secondNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_secondNumber.TabIndex = 7;
             this.tb_secondNumber.TextChanged += new System.EventHandler(this.tb_secondNumber_TextChanged);
+            this.tb_secondNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_numbersOnly);
             // 
             // tb_answer
             // 
@@ -195,6 +197,7 @@
             this.btn_saveInOrder.TabIndex = 22;
             this.btn_saveInOrder.Text = "Save";
             this.btn_saveInOrder.UseVisualStyleBackColor = true;
+            this.btn_saveInOrder.Click += new System.EventHandler(this.btn_saveInOrder_Click);
             // 
             // label7
             // 
@@ -224,6 +227,7 @@
             this.btn_savePostOrder.TabIndex = 25;
             this.btn_savePostOrder.Text = "Save";
             this.btn_savePostOrder.UseVisualStyleBackColor = true;
+            this.btn_savePostOrder.Click += new System.EventHandler(this.btn_savePostOrder_Click);
             // 
             // label8
             // 

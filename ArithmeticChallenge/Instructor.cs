@@ -40,7 +40,7 @@ namespace ArithmeticChallenge
         LinkListNodeList equationNodeList = new LinkListNodeList();
 
         //symbols used in the dropdown to select for calculationss
-        string[] operators = { "+", "-", "x", "/" };
+        string[] operators = { " + ", "-", "x", "/" };
 
         public Instructor()
         {
@@ -154,6 +154,7 @@ namespace ArithmeticChallenge
 
                 Invoke((Action)delegate
                 {
+                    //for every new entry added, the binary tree rich text box is updated to be printed in order
                     rtb_binaryTree.Clear();
                     rtb_binaryTree.Text = BinaryTree.PrintInOrder(tree);
                     btn_send.Enabled = true;
@@ -251,6 +252,22 @@ namespace ArithmeticChallenge
             dgv_questionsAsked.DataSource = equations;
         }
 
+        private static void ShowErrorDialog(string message)
+        {
+            MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void tb_numbersOnly(object sender, KeyPressEventArgs e)
+        {
+            //allows only number to be entered into the text boxes
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void btn_exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         #region Update result text box when calculation is changed
         private void dd_operator_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -276,16 +293,6 @@ namespace ArithmeticChallenge
                 dd_operator.Text).ToString();
         }
         #endregion
-
-        private static void ShowErrorDialog(string message)
-        {
-            MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void btn_exit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         #region List sorting buttons
 
@@ -365,6 +372,8 @@ namespace ArithmeticChallenge
 
         #endregion
 
+        #region binary tree order sorting buttons
+
         private void btn_printPreOrder_Click(object sender, EventArgs e)
         {
             rtb_binaryTree.Text = BinaryTree.PrintPreOrder(tree);
@@ -380,21 +389,52 @@ namespace ArithmeticChallenge
             rtb_binaryTree.Text = BinaryTree.PrintPostOrder(tree);
         }
 
+        #endregion
+
+        #region binary tree save order buttons
+
         private void btn_savePreOrder_Click(object sender, EventArgs e)
         {
+            
             string preOrderDir = @"C:\ArithmeticChallenge\pre_order.txt";
+
             if (!File.Exists(preOrderDir))
             {
-                File.Create(preOrderDir);
+                File.WriteAllLines(preOrderDir, new[] { BinaryTree.PrintPreOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
             }
             else
             {
-                using (StreamWriter writer = new StreamWriter(preOrderDir))
-                {
-                    writer.WriteLine(BinaryTree.PrintPreOrder(tree));
-                }
-            }
-            
+                File.AppendAllLines(preOrderDir, new[] { BinaryTree.PrintPreOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
+            }           
         }
+
+        private void btn_saveInOrder_Click(object sender, EventArgs e)
+        {
+            string preOrderDir = @"C:\ArithmeticChallenge\in_order.txt";
+            if (!File.Exists(preOrderDir))
+            {
+
+                File.WriteAllLines(preOrderDir, new[] { BinaryTree.PrintInOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
+            }
+            else
+            {
+                File.AppendAllLines(preOrderDir, new[] { BinaryTree.PrintInOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
+            }
+        }
+
+        private void btn_savePostOrder_Click(object sender, EventArgs e)
+        {
+            string preOrderDir = @"C:\ArithmeticChallenge\post_order.txt";
+            if (!File.Exists(preOrderDir))
+            {
+
+                File.WriteAllLines(preOrderDir, new[] { BinaryTree.PrintPostOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
+            }
+            else
+            {
+                File.AppendAllLines(preOrderDir, new[] { BinaryTree.PrintPostOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm") });
+            }
+        }
+        #endregion
     }
 }
