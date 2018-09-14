@@ -1,32 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
     class BinaryTree
     {
-        public BinaryTreeNode top;
+        public BinaryTreeNode root;
+        private static string printString = "";
 
         public BinaryTree()
         {
-            top = null;
+            root = null;
         }
 
         public BinaryTree(EquationProperties value)
         {
-            top = new BinaryTreeNode(value);
+            root = new BinaryTreeNode(value);
         }
 
         public void Add(EquationProperties myValue)
         {
-            if (top == null)
+            if (root == null)
             {
                 //the tree is empty
-                top = new BinaryTreeNode(myValue);
+                root = new BinaryTreeNode(myValue);
                 return;
             }
 
-            BinaryTreeNode currentNode = top;
+            BinaryTreeNode currentNode = root;
             bool insert = false;
 
             do
@@ -62,27 +64,78 @@ namespace ArithmeticChallenge.NodeFunctions
             } while (!insert);
         }//end function
 
-        public void PrintTree(BinaryTreeNode node, ref string printString)
+        public static string PrintPostOrder(BinaryTree tree)
+        {
+            printString = "";
+            PrintPostOrder(tree.root);
+            return printString;
+        }
+
+        //given a the root node of a binary tree, print in post-order
+        public static void PrintPostOrder(BinaryTreeNode node)
         {
             if (node == null)
             {
-                node = top;
-                printString += PrintNode(node);
+                return;
             }
 
-            if (node.left != null)
+            //first recur on left subtree
+            PrintPostOrder(node.left);
+
+            //then recur on right subtree
+            PrintPostOrder(node.right);
+
+            //add text to the rich text box\
+            printString += node.NodeToString();
+        }
+
+        public static string PrintInOrder(BinaryTree tree)
+        {
+            printString = "";
+            PrintInOrder(tree.root);
+            return printString;
+        }
+
+        //given the root node of a binary tree, print in-order
+        public static void PrintInOrder(BinaryTreeNode node)
+        {
+            if (node == null)
+                return;
+
+            //first recur on left subtree
+            PrintInOrder(node.left);
+
+            //then print the data of node
+            if (!printString.Contains(node.NodeToString()))
             {
-                PrintTree(node.left, ref printString);
-                printString += PrintNode(node.left);
-            }
-            else
-            {
-                printString += PrintNode(node);
-            }
-            if (node.right != null)
-            {
-                PrintTree(node.right, ref printString);
-            }
+                printString += node.NodeToString();
+            }     
+
+            //now recur on right subtree
+            PrintInOrder(node.right);
+        }
+
+        public static string PrintPreOrder(BinaryTree tree)
+        {
+            printString = "";
+            PrintPreOrder(tree.root);
+            return printString;
+        }
+
+        //given the root node of a binary, print in pre-order
+        public static void PrintPreOrder(BinaryTreeNode node)
+        {
+            if (node == null)
+                return;
+
+            //first print data of the node
+            printString += node.NodeToString();
+
+            //then recur on left subtree
+            PrintPreOrder(node.left);
+
+            //now recur on right subtree
+            PrintPreOrder(node.right);
         }
 
         public BinaryTreeNode FindNodeByResultValue(BinaryTreeNode node, int resultValue)

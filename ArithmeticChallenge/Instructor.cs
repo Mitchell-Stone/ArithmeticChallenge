@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -28,6 +29,8 @@ namespace ArithmeticChallenge
         private Socket clientSocket;
         private int PORT = 3333;
         private byte[] buffer;
+
+        BinaryTree tree = new BinaryTree();
 
         //list of all current equations
         List<EquationProperties> equations = new List<EquationProperties>();
@@ -111,8 +114,6 @@ namespace ArithmeticChallenge
             }
         }
 
-        string printString = "";
-
         private void ReceiveCallback(IAsyncResult AR)
         {
             try
@@ -135,29 +136,26 @@ namespace ArithmeticChallenge
                 equation = JsonConvert.DeserializeObject<EquationProperties>(message);
 
                 // Create new node and add to nodelist
-                LinkListNode node = new LinkListNode(equation);
-                equationNodeList.AddEquationNode(node);
-
-                BinaryTree tree = new BinaryTree();
-                if (tree.top == null)
+                Invoke((Action)delegate
                 {
-                    tree.top = new BinaryTreeNode(equation);
+                    LinkListNode node = new LinkListNode(equation);
+                    equationNodeList.AddEquationNode(node);
+                });
+
+                
+                if (tree.root == null)
+                {
+                    tree.root = new BinaryTreeNode(equation);
                 }
                 else
                 {
                     tree.Add(equation);
                 }
-                
-                string tempString = "";
-                BinaryTreeNode root = tree.top;
-                tree.PrintTree(root, ref tempString);
-
-                printString += tempString + ", ";
 
                 Invoke((Action)delegate
                 {
-                    printString = printString.Remove(printString.Length - 1);
-                    rtb_linkList.Text = printString;
+                    rtb_binaryTree.Clear();
+                    rtb_binaryTree.Text = BinaryTree.PrintInOrder(tree);
                     btn_send.Enabled = true;
                 });
 
@@ -168,7 +166,7 @@ namespace ArithmeticChallenge
                     {
                         if (equation.IsCorrect == false)
                         {
-                            rtb_incorrect.Text = InstructorController.PrintLinkList(equationNodeList);
+                            rtb_linkList.Text = InstructorController.PrintLinkList(equationNodeList);
                         }                     
                     });
                 }
@@ -366,5 +364,37 @@ namespace ArithmeticChallenge
         }
 
         #endregion
+
+        private void btn_printPreOrder_Click(object sender, EventArgs e)
+        {
+            rtb_binaryTree.Text = BinaryTree.PrintPreOrder(tree);
+        }
+
+        private void btn_printInOrder_Click(object sender, EventArgs e)
+        {
+            rtb_binaryTree.Text = BinaryTree.PrintInOrder(tree);
+        }
+
+        private void btn_printPostOrder_Click(object sender, EventArgs e)
+        {
+            rtb_binaryTree.Text = BinaryTree.PrintPostOrder(tree);
+        }
+
+        private void btn_savePreOrder_Click(object sender, EventArgs e)
+        {
+            string preOrderDir = @"C:\ArithmeticChallenge\pre_order.txt";
+            if (!File.Exists(preOrderDir))
+            {
+                File.Create(preOrderDir);
+            }
+            else
+            {
+                using (StreamWriter writer = new StreamWriter(preOrderDir))
+                {
+                    writer.WriteLine(BinaryTree.PrintPreOrder(tree));
+                }
+            }
+            
+        }
     }
 }

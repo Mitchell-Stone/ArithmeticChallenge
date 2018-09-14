@@ -12,6 +12,7 @@ namespace ArithmeticChallenge.NodeFunctions
         public BinaryTreeNode top;
         public BinaryTreeNode left;
         public BinaryTreeNode right;
+        public BinaryTreeNode previous;
 
         public BinaryTreeNode(EquationProperties equation)
         {
@@ -19,6 +20,13 @@ namespace ArithmeticChallenge.NodeFunctions
             top = null;
             left = null;
             right = null;
+            previous = null;
         }
+
+        public string NodeToString()
+        {
+            return treeEquation.Result.ToString() + "(" +treeEquation.FirstNumber.ToString() + treeEquation.Symbol + treeEquation.SecondNumber.ToString() + "), ";
+        }
+
     }
 }

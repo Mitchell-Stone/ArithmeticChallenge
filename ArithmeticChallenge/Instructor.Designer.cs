@@ -38,22 +38,22 @@
             this.dd_operator = new System.Windows.Forms.ComboBox();
             this.dgv_questionsAsked = new System.Windows.Forms.DataGridView();
             this.btn_send = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_printPreOrder = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_savePreOrder = new System.Windows.Forms.Button();
+            this.btn_saveInOrder = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.btn_printInOrder = new System.Windows.Forms.Button();
+            this.btn_savePostOrder = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btn_printPostOrder = new System.Windows.Forms.Button();
             this.btn_exit = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.rtb_binaryTree = new System.Windows.Forms.RichTextBox();
             this.rtb_linkList = new System.Windows.Forms.RichTextBox();
-            this.rtb_incorrect = new System.Windows.Forms.RichTextBox();
             this.lbl_clientCount = new System.Windows.Forms.Label();
             this.btn_sortOne = new System.Windows.Forms.Button();
             this.btn_sortTwo = new System.Windows.Forms.Button();
@@ -157,14 +157,15 @@
             this.btn_send.UseVisualStyleBackColor = true;
             this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
             // 
-            // button1
+            // btn_printPreOrder
             // 
-            this.button1.Location = new System.Drawing.Point(8, 593);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 32);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Display";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_printPreOrder.Location = new System.Drawing.Point(8, 593);
+            this.btn_printPreOrder.Name = "btn_printPreOrder";
+            this.btn_printPreOrder.Size = new System.Drawing.Size(80, 32);
+            this.btn_printPreOrder.TabIndex = 17;
+            this.btn_printPreOrder.Text = "Display";
+            this.btn_printPreOrder.UseVisualStyleBackColor = true;
+            this.btn_printPreOrder.Click += new System.EventHandler(this.btn_printPreOrder_Click);
             // 
             // label6
             // 
@@ -176,23 +177,24 @@
             this.label6.TabIndex = 18;
             this.label6.Text = "Pre-Order";
             // 
-            // button5
+            // btn_savePreOrder
             // 
-            this.button5.Location = new System.Drawing.Point(94, 593);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(86, 32);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "Save";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_savePreOrder.Location = new System.Drawing.Point(94, 593);
+            this.btn_savePreOrder.Name = "btn_savePreOrder";
+            this.btn_savePreOrder.Size = new System.Drawing.Size(86, 32);
+            this.btn_savePreOrder.TabIndex = 19;
+            this.btn_savePreOrder.Text = "Save";
+            this.btn_savePreOrder.UseVisualStyleBackColor = true;
+            this.btn_savePreOrder.Click += new System.EventHandler(this.btn_savePreOrder_Click);
             // 
-            // button6
+            // btn_saveInOrder
             // 
-            this.button6.Location = new System.Drawing.Point(303, 593);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(84, 32);
-            this.button6.TabIndex = 22;
-            this.button6.Text = "Save";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_saveInOrder.Location = new System.Drawing.Point(303, 593);
+            this.btn_saveInOrder.Name = "btn_saveInOrder";
+            this.btn_saveInOrder.Size = new System.Drawing.Size(84, 32);
+            this.btn_saveInOrder.TabIndex = 22;
+            this.btn_saveInOrder.Text = "Save";
+            this.btn_saveInOrder.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -204,23 +206,24 @@
             this.label7.TabIndex = 21;
             this.label7.Text = "In-Order";
             // 
-            // button7
+            // btn_printInOrder
             // 
-            this.button7.Location = new System.Drawing.Point(216, 593);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(81, 32);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "Display";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btn_printInOrder.Location = new System.Drawing.Point(216, 593);
+            this.btn_printInOrder.Name = "btn_printInOrder";
+            this.btn_printInOrder.Size = new System.Drawing.Size(81, 32);
+            this.btn_printInOrder.TabIndex = 20;
+            this.btn_printInOrder.Text = "Display";
+            this.btn_printInOrder.UseVisualStyleBackColor = true;
+            this.btn_printInOrder.Click += new System.EventHandler(this.btn_printInOrder_Click);
             // 
-            // button8
+            // btn_savePostOrder
             // 
-            this.button8.Location = new System.Drawing.Point(512, 593);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(84, 32);
-            this.button8.TabIndex = 25;
-            this.button8.Text = "Save";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btn_savePostOrder.Location = new System.Drawing.Point(512, 593);
+            this.btn_savePostOrder.Name = "btn_savePostOrder";
+            this.btn_savePostOrder.Size = new System.Drawing.Size(84, 32);
+            this.btn_savePostOrder.TabIndex = 25;
+            this.btn_savePostOrder.Text = "Save";
+            this.btn_savePostOrder.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -232,14 +235,15 @@
             this.label8.TabIndex = 24;
             this.label8.Text = "Post-Order";
             // 
-            // button9
+            // btn_printPostOrder
             // 
-            this.button9.Location = new System.Drawing.Point(423, 593);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(83, 32);
-            this.button9.TabIndex = 23;
-            this.button9.Text = "Dislpay";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btn_printPostOrder.Location = new System.Drawing.Point(423, 593);
+            this.btn_printPostOrder.Name = "btn_printPostOrder";
+            this.btn_printPostOrder.Size = new System.Drawing.Size(83, 32);
+            this.btn_printPostOrder.TabIndex = 23;
+            this.btn_printPostOrder.Text = "Dislpay";
+            this.btn_printPostOrder.UseVisualStyleBackColor = true;
+            this.btn_printPostOrder.Click += new System.EventHandler(this.btn_printPostOrder_Click);
             // 
             // btn_exit
             // 
@@ -291,23 +295,25 @@
             this.label11.TabIndex = 29;
             this.label11.Text = "Binary Tree";
             // 
+            // rtb_binaryTree
+            // 
+            this.rtb_binaryTree.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb_binaryTree.Location = new System.Drawing.Point(8, 430);
+            this.rtb_binaryTree.Name = "rtb_binaryTree";
+            this.rtb_binaryTree.ReadOnly = true;
+            this.rtb_binaryTree.Size = new System.Drawing.Size(750, 117);
+            this.rtb_binaryTree.TabIndex = 31;
+            this.rtb_binaryTree.Text = "";
+            // 
             // rtb_linkList
             // 
             this.rtb_linkList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtb_linkList.Location = new System.Drawing.Point(8, 430);
+            this.rtb_linkList.Location = new System.Drawing.Point(8, 293);
             this.rtb_linkList.Name = "rtb_linkList";
-            this.rtb_linkList.Size = new System.Drawing.Size(750, 117);
-            this.rtb_linkList.TabIndex = 31;
+            this.rtb_linkList.ReadOnly = true;
+            this.rtb_linkList.Size = new System.Drawing.Size(750, 100);
+            this.rtb_linkList.TabIndex = 32;
             this.rtb_linkList.Text = "";
-            // 
-            // rtb_incorrect
-            // 
-            this.rtb_incorrect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtb_incorrect.Location = new System.Drawing.Point(8, 293);
-            this.rtb_incorrect.Name = "rtb_incorrect";
-            this.rtb_incorrect.Size = new System.Drawing.Size(750, 100);
-            this.rtb_incorrect.TabIndex = 32;
-            this.rtb_incorrect.Text = "";
             // 
             // lbl_clientCount
             // 
@@ -367,21 +373,21 @@
             this.Controls.Add(this.btn_sortTwo);
             this.Controls.Add(this.btn_sortOne);
             this.Controls.Add(this.lbl_clientCount);
-            this.Controls.Add(this.rtb_incorrect);
             this.Controls.Add(this.rtb_linkList);
+            this.Controls.Add(this.rtb_binaryTree);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btn_exit);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.btn_savePostOrder);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btn_printPostOrder);
+            this.Controls.Add(this.btn_saveInOrder);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btn_printInOrder);
+            this.Controls.Add(this.btn_savePreOrder);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_printPreOrder);
             this.Controls.Add(this.btn_send);
             this.Controls.Add(this.dgv_questionsAsked);
             this.Controls.Add(this.dd_operator);
@@ -413,22 +419,22 @@
         private System.Windows.Forms.ComboBox dd_operator;
         private System.Windows.Forms.DataGridView dgv_questionsAsked;
         private System.Windows.Forms.Button btn_send;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_printPreOrder;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_savePreOrder;
+        private System.Windows.Forms.Button btn_saveInOrder;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btn_printInOrder;
+        private System.Windows.Forms.Button btn_savePostOrder;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btn_printPostOrder;
         private System.Windows.Forms.Button btn_exit;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox rtb_binaryTree;
         private System.Windows.Forms.RichTextBox rtb_linkList;
-        private System.Windows.Forms.RichTextBox rtb_incorrect;
         private System.Windows.Forms.Label lbl_clientCount;
         private System.Windows.Forms.Button btn_sortOne;
         private System.Windows.Forms.Button btn_sortTwo;
