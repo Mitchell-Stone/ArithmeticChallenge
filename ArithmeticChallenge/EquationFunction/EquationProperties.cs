@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        Contains the serializable properties for the equation properties class
+ *      Known Bugs:     nill
+ */
+
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArithmeticChallenge
 {

@@ -1,12 +1,22 @@
-﻿using System.Collections.Generic;
+﻿/*
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        Contains functions to create and add to the binary tree. Contains recursive functions for the print
+ *                      binary tree in post-order, in-order and pre-order
+ *      Known Bugs:     nill
+ */
+
 using System.Text;
-using System.Windows.Forms;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
     class BinaryTree
     {
+        //the first node of the binary tree
         public BinaryTreeNode root;
+
+        //string used to print the binary tree
         private static string printString = "";
 
         public BinaryTree()
@@ -23,7 +33,7 @@ namespace ArithmeticChallenge.NodeFunctions
         {
             if (root == null)
             {
-                //the tree is empty
+                //the tree is empty so make the first node the root node
                 root = new BinaryTreeNode(myValue);
                 return;
             }
@@ -152,6 +162,7 @@ namespace ArithmeticChallenge.NodeFunctions
 
         private static string PrintNode(BinaryTreeNode node)
         {
+            //creates a single string for a nodes properties
             StringBuilder sb = new StringBuilder();
 
             sb.Append(node.treeEquation.Result.ToString());

@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        Contains functions that are used to manipulate and navigate through a list of nodes. Contains a function to print
+ *                      a node values.
+ *      Known Bugs:     nill
+ */
 
 namespace ArithmeticChallenge.NodeFunctions
 {
@@ -47,6 +50,7 @@ namespace ArithmeticChallenge.NodeFunctions
             return this.previous;
         }
 
+        //returns a string of a link list node values
         public string NodeToString()
         {
             return equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber.ToString() + "=" + equation.Result.ToString();

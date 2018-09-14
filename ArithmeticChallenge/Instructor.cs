@@ -1,12 +1,10 @@
 ﻿/*
- * 
- * 
- * 
- *     
- * 
- *  known bugs: error occurs when non-numerical characters are put into the equation text boxes
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        All functions to run the logic for the instructor form
+ *      Known Bugs:     nill
  */
-
 
 using ArithmeticChallenge.Controllers;
 using ArithmeticChallenge.NodeFunctions;
@@ -32,11 +30,13 @@ namespace ArithmeticChallenge
 
         BinaryTree tree = new BinaryTree();
 
-        //list of all current equations
+        //list of all current equations to display in the data grid view
         List<EquationProperties> equations = new List<EquationProperties>();
 
+        //an equation object
         EquationProperties equation;
 
+        //A node list of uquation objects
         LinkListNodeList equationNodeList = new LinkListNodeList();
 
         //symbols used in the dropdown to select for calculationss
@@ -45,8 +45,11 @@ namespace ArithmeticChallenge
         public Instructor()
         {
             InitializeComponent();
+
+            //set the data source for the data grid view to the equations list
             dd_operator.DataSource = operators;
 
+            //put the columns into the data grid view
             LoadQuestionsDataGridView();
 
             StartServer();
@@ -118,8 +121,7 @@ namespace ArithmeticChallenge
         {
             try
             {
-                // Socket exception will raise here when client closes, as this sample does not
-                // demonstrate graceful disconnects for the sake of simplicity.
+                // Socket exception will raise here when client closes
                 int received = clientSocket.EndReceive(AR);
 
                 if (received == 0)
@@ -142,19 +144,22 @@ namespace ArithmeticChallenge
                     equationNodeList.AddEquationNode(node);
                 });
 
-                
+                //add the node to the binary tree
                 if (tree.root == null)
                 {
+                    //if tree is emtpy, set the node as the root
                     tree.root = new BinaryTreeNode(equation);
                 }
                 else
                 {
+                    //add the node to the bindary tree
                     tree.Add(equation);
                 }
 
                 Invoke((Action)delegate
                 {
                     rtb_binaryTree.Clear();
+                    //the default print order for the binary tree is in-order
                     rtb_binaryTree.Text = BinaryTree.PrintInOrder(tree);
                     btn_send.Enabled = true;
                 });
@@ -367,16 +372,19 @@ namespace ArithmeticChallenge
 
         private void btn_printPreOrder_Click(object sender, EventArgs e)
         {
+            lbl_sortOrder.Text = "Binary Tree - Sorted by Pre-Order";
             rtb_binaryTree.Text = BinaryTree.PrintPreOrder(tree);
         }
 
         private void btn_printInOrder_Click(object sender, EventArgs e)
         {
+            lbl_sortOrder.Text = "Binary Tree - Sorted by In-Order";
             rtb_binaryTree.Text = BinaryTree.PrintInOrder(tree);
         }
 
         private void btn_printPostOrder_Click(object sender, EventArgs e)
         {
+            lbl_sortOrder.Text = "Binary Tree - Sorted by Post-Order";
             rtb_binaryTree.Text = BinaryTree.PrintPostOrder(tree);
         }
 

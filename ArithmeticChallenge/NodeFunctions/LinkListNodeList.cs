@@ -1,14 +1,19 @@
-﻿using System;
+﻿/*
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        Contains properties of a node list that are used to manipulate the list. Contains functions that add, sort and search through
+ *                      the list of nodes
+ *      Known Bugs:     nill
+ */
+
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArithmeticChallenge.NodeFunctions
 {
     class LinkListNodeList
     {
+        //in this list a node can only have 3 states
         public LinkListNode HeadNode;
         public LinkListNode CurrentNode;
         public LinkListNode TailNode;
@@ -25,6 +30,7 @@ namespace ArithmeticChallenge.NodeFunctions
             count++;
         }
 
+        //properties to get or set a nodes value
         public LinkListNode getCurrentNode() { return CurrentNode; }
         public LinkListNode getHeadNode() { return HeadNode; }
         public LinkListNode getTailNode() { return TailNode; }
@@ -33,6 +39,7 @@ namespace ArithmeticChallenge.NodeFunctions
         public void setHeadNode(LinkListNode node) { HeadNode = node; }
         public void setTailNode(LinkListNode node) { TailNode = node; }
 
+        //add a node to the node list
         public void AddEquationNode(LinkListNode node)
         {
             if ((HeadNode == null) && (CurrentNode == null) && (TailNode == null))
@@ -45,6 +52,7 @@ namespace ArithmeticChallenge.NodeFunctions
             }
             else
             {
+                //append the node to the list
                 CurrentNode = node;
                 HeadNode.SetPrevious(node);
                 CurrentNode.SetNext(HeadNode);
@@ -71,7 +79,7 @@ namespace ArithmeticChallenge.NodeFunctions
             }
         }
 
-        public int binarySearch(LinkListNode searchValue)
+        public int BinarySearch(LinkListNode searchValue)
         {
             //sorts the link list by result
             SortList();

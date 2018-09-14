@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        Contains variable that are used to build a binary tree. Has a function to print out a binary tree node.
+ *      Known Bugs:     nill
+ */
 
 namespace ArithmeticChallenge.NodeFunctions
 {
@@ -12,7 +14,6 @@ namespace ArithmeticChallenge.NodeFunctions
         public BinaryTreeNode top;
         public BinaryTreeNode left;
         public BinaryTreeNode right;
-        public BinaryTreeNode previous;
 
         public BinaryTreeNode(EquationProperties equation)
         {
@@ -20,9 +21,9 @@ namespace ArithmeticChallenge.NodeFunctions
             top = null;
             left = null;
             right = null;
-            previous = null;
         }
 
+        //returns a string of a binary tree node
         public string NodeToString()
         {
             return treeEquation.Result.ToString() + "(" +treeEquation.FirstNumber.ToString() + treeEquation.Symbol + treeEquation.SecondNumber.ToString() + "), ";

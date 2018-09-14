@@ -1,10 +1,10 @@
 ﻿/*
-* 
-*
-*
-*   
-*
-*/
+ *      Student Number: 451381461
+ *      Name:           Mitchell Stone
+ *      Date:           14/09/2018
+ *      Purpose:        All functions to run the logic for the student window
+ *      Known Bugs:     nill
+ */
 
 using Newtonsoft.Json;
 using System;
@@ -17,12 +17,17 @@ namespace ArithmeticChallengeStudent
 {
     public partial class Student : Form
     {
+        //create a client socket to store socket data
         private static Socket clientSocket;
+
+        //create a buffer to store the messages
         private byte[] buffer;
+
+        //open on port 3333
         private int PORT = 3333;
 
-        private string TafeIP = "172.17.124.43";
-        private string HomeIP = "192.168.1.4";
+        //IP address only works for local computer
+        private string LocalIP = "127.0.0.1";
 
         string message = null;
 
@@ -32,11 +37,12 @@ namespace ArithmeticChallengeStudent
         {
             InitializeComponent();
             btn_submit.Enabled = false;
+
             try
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 //connect to the specified host.
-                var endPoint = new IPEndPoint(IPAddress.Parse(HomeIP), PORT);
+                var endPoint = new IPEndPoint(IPAddress.Parse(LocalIP), PORT);
                 clientSocket.BeginConnect(endPoint, ConnectCallback, null);
             }
             catch (SocketException ex)
@@ -53,7 +59,6 @@ namespace ArithmeticChallengeStudent
         {
             try
             {
-
                 int received = clientSocket.EndReceive(AR);
                 if (received == 0)
                 {
@@ -65,6 +70,7 @@ namespace ArithmeticChallengeStudent
                 int index = message.IndexOf("}");
                 message = message.Substring(0, index + 1);
 
+                //Check for intial connection reply
                 if (message.Contains("server_connection"))
                 {
                     ServerMessages serverMessage = JsonConvert.DeserializeObject<ServerMessages>(message);
@@ -73,11 +79,13 @@ namespace ArithmeticChallengeStudent
                 }
                 else if (DeserializeJson(message) != null)
                 {
+                    //deserialize json string into an object
                     Console.WriteLine(message);
                     equation = DeserializeJson(message);
 
                     Invoke((Action)delegate
                     {
+                        //update the question text box to show the equation
                         tb_question.Text = equation.FirstNumber.ToString() + equation.Symbol + equation.SecondNumber.ToString() + "=";
                         btn_submit.Enabled = true;
                     });
@@ -134,6 +142,7 @@ namespace ArithmeticChallengeStudent
 
         private EquationProperties DeserializeJson(string json)
         {
+            //basic function to deserialise a json string
             try
             {
                 EquationProperties eq = JsonConvert.DeserializeObject<EquationProperties>(json);
@@ -150,6 +159,7 @@ namespace ArithmeticChallengeStudent
         {
             if (tb_answer.Text == equation.Result.ToString())
             {
+                //submit correct answer
                 MessageBox.Show("That is correct!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 equation.IsCorrect = true;
                 string json = JsonConvert.SerializeObject(equation);
@@ -157,11 +167,13 @@ namespace ArithmeticChallengeStudent
             }
             else
             {
+                //submit incorrect answer
                 MessageBox.Show("That is incorrect!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 equation.IsCorrect = false;
                 string json = JsonConvert.SerializeObject(equation);
                 SendMessage(json);
             }
+            //toggle button and clear text boxes
             btn_submit.Enabled = false;
             tb_answer.Clear();
             tb_question.Clear();
@@ -169,6 +181,7 @@ namespace ArithmeticChallengeStudent
 
         private void SendMessage(string json)
         {
+            //function that sends the reply to the server
             var sendData = Encoding.ASCII.GetBytes(json);
             clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
         }
