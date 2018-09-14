@@ -388,8 +388,7 @@ namespace ArithmeticChallenge
             {
                 writer.WriteLine(BinaryTree.PrintPreOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm"));
                 writer.Close();
-            }
-            
+            }         
         }
 
         private void btn_saveInOrder_Click(object sender, EventArgs e)
@@ -412,6 +411,11 @@ namespace ArithmeticChallenge
                 writer.WriteLine(BinaryTree.PrintPostOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm"));
                 writer.Close();
             }
+        }
+
+        private void btn_numbersOnly(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

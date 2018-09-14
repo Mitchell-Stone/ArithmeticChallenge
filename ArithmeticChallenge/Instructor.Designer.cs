@@ -110,6 +110,7 @@
             this.tb_firstNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_firstNumber.TabIndex = 5;
             this.tb_firstNumber.TextChanged += new System.EventHandler(this.tb_firstNumber_TextChanged);
+            this.tb_firstNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btn_numbersOnly);
             // 
             // tb_secondNumber
             // 
@@ -119,6 +120,7 @@
             this.tb_secondNumber.Size = new System.Drawing.Size(100, 22);
             this.tb_secondNumber.TabIndex = 7;
             this.tb_secondNumber.TextChanged += new System.EventHandler(this.tb_secondNumber_TextChanged);
+            this.tb_secondNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btn_numbersOnly);
             // 
             // tb_answer
             // 
