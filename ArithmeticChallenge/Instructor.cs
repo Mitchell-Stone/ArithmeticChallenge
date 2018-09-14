@@ -383,18 +383,35 @@ namespace ArithmeticChallenge
         private void btn_savePreOrder_Click(object sender, EventArgs e)
         {
             string preOrderDir = @"C:\ArithmeticChallenge\pre_order.txt";
-            if (!File.Exists(preOrderDir))
+
+            using (StreamWriter writer = new StreamWriter(preOrderDir, true))
             {
-                File.Create(preOrderDir);
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(preOrderDir))
-                {
-                    writer.WriteLine(BinaryTree.PrintPreOrder(tree));
-                }
+                writer.WriteLine(BinaryTree.PrintPreOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm"));
+                writer.Close();
             }
             
+        }
+
+        private void btn_saveInOrder_Click(object sender, EventArgs e)
+        {
+            string preOrderDir = @"C:\ArithmeticChallenge\in_order.txt";
+
+            using (StreamWriter writer = new StreamWriter(preOrderDir, true))
+            {
+                writer.WriteLine(BinaryTree.PrintInOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm"));
+                writer.Close();
+            }
+        }
+
+        private void btn_savePostOrder_Click(object sender, EventArgs e)
+        {
+            string preOrderDir = @"C:\ArithmeticChallenge\post_order.txt";
+
+            using (StreamWriter writer = new StreamWriter(preOrderDir, true))
+            {
+                writer.WriteLine(BinaryTree.PrintPostOrder(tree) + DateTime.Now.ToString("yyyy-MM-dd:hh-mm"));
+                writer.Close();
+            }
         }
     }
 }
