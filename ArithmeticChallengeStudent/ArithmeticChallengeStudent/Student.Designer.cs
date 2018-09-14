@@ -123,7 +123,7 @@
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.btn_exit);
             this.Name = "Student";
-            this.Text = "Form1";
+            this.Text = "Student";
             this.ResumeLayout(false);
             this.PerformLayout();
 

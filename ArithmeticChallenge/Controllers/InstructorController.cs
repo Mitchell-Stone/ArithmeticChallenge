@@ -102,6 +102,10 @@ namespace ArithmeticChallenge.Controllers
                         sb.Append(" <-> " + nodeList.CurrentNode.NodeToString());
                         nodeList.CurrentNode = nodeList.CurrentNode.GetNext();
                     }
+                    else
+                    {
+                        nodeList.CurrentNode = nodeList.CurrentNode.GetNext();
+                    }
                 }
             }
 

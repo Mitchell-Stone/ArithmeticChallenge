@@ -106,10 +106,7 @@ namespace ArithmeticChallenge.NodeFunctions
             PrintInOrder(node.left);
 
             //then print the data of node
-            if (!printString.Contains(node.NodeToString()))
-            {
-                printString += node.NodeToString();
-            }     
+            printString += node.NodeToString();   
 
             //now recur on right subtree
             PrintInOrder(node.right);
